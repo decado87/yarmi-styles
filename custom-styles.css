@@ -1495,7 +1495,7 @@ body{
 }
 
 /* Hlavne nadpisy */
-h1, h2, h3,
+h1, h2, h3, h4, h5, h6,
 .category-title,
 .section-title,
 .products-block .title,
@@ -1595,7 +1595,7 @@ body{
 }
 
 /* NADPISY */
-h1, h2, h3,
+h1, h2, h3, h4, h5, h6,
 .category-title,
 .section-title{
     font-weight: 300 !important;
