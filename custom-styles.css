@@ -1449,209 +1449,209 @@
         border-top:none !important;
         border-bottom:none !important;
     }
+}
+/* ===== TYPOGRAFIA & FONTY (globálne) ===== */
+:root{
+    --yarmi-gold: #c8a84e;
 
-    :root{
-        --yarmi-gold: #c8a84e;
+    --font-logo: 'Halant', serif;
+    --font-heading: 'Fraunces', serif;
+    --font-body: 'Instrument Sans', sans-serif;
 
-        --font-logo: 'Halant', serif;
-        --font-heading: 'Fraunces', serif;
-        --font-body: 'Instrument Sans', sans-serif;
+    --font-logo-weight: 400;
+    --font-heading-weight: 300;
+    --font-body-weight: 400;
+    --font-body-bold-weight: 700;
 
-        --font-logo-weight: 400;
-        --font-heading-weight: 300;
-        --font-body-weight: 400;
-        --font-body-bold-weight: 700;
+    --font-heading-size: 60px;
+    --font-body-size: 17px;
 
-        --font-heading-size: 60px;
-        --font-body-size: 17px;
+    --line-height-heading: 1.1;
+    --line-height-body: 1.5;
 
-        --line-height-heading: 1.1;
-        --line-height-body: 1.5;
+    --heading-transform: uppercase;
+    --heading-letter-spacing: 0em;
+    --body-letter-spacing: 0em;
+}
 
-        --heading-transform: uppercase;
-        --heading-letter-spacing: 0em;
-        --body-letter-spacing: 0em;
-    }
+body{
+    font-family: var(--font-body) !important;
+    font-size: var(--font-body-size) !important;
+    font-weight: var(--font-body-weight) !important;
+    line-height: var(--line-height-body) !important;
+    letter-spacing: var(--body-letter-spacing) !important;
+    color: #111 !important;
+}
 
-    body{
-        font-family: var(--font-body);
-        font-size: var(--font-body-size);
-        font-weight: var(--font-body-weight);
-        line-height: var(--line-height-body);
-        letter-spacing: var(--body-letter-spacing);
-        color: #111;
-    }
+/* Logo / nazov shopu */
+.site-name,
+.site-name a,
+.logo,
+.logo-text{
+    font-family: var(--font-logo) !important;
+    font-weight: var(--font-logo-weight) !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
 
-    /* Logo / nazov shopu */
-    .site-name,
-    .site-name a,
-    .logo,
-    .logo-text{
-        font-family: var(--font-logo) !important;
-        font-weight: var(--font-logo-weight) !important;
-        letter-spacing: 0 !important;
-        text-transform: none !important;
-    }
+/* Hlavne nadpisy */
+h1, h2, h3,
+.category-title,
+.section-title,
+.products-block .title,
+.product-top h1{
+    font-family: var(--font-heading) !important;
+    font-weight: var(--font-heading-weight) !important;
+    line-height: var(--line-height-heading) !important;
+    text-transform: var(--heading-transform) !important;
+    letter-spacing: var(--heading-letter-spacing) !important;
+    color: #111 !important;
+}
 
-    /* Hlavne nadpisy */
-    h1, h2, h3,
-    .category-title,
-    .section-title,
-    .products-block .title,
-    .product-top h1{
-        font-family: var(--font-heading) !important;
-        font-weight: var(--font-heading-weight) !important;
-        line-height: var(--line-height-heading) !important;
-        text-transform: var(--heading-transform) !important;
-        letter-spacing: var(--heading-letter-spacing) !important;
-        color: #111 !important;
-    }
+h1{
+    font-size: clamp(40px, 7vw, 60px) !important;
+    margin-bottom: 24px !important;
+}
 
-    h1{
-        font-size: clamp(40px, 7vw, 60px) !important;
-        margin-bottom: 24px !important;
-    }
+h2{
+    font-size: clamp(28px, 5vw, 42px) !important;
+}
 
-    h2{
-        font-size: clamp(28px, 5vw, 42px) !important;
-    }
+h3{
+    font-size: clamp(22px, 4vw, 30px) !important;
+}
 
-    h3{
-        font-size: clamp(22px, 4vw, 30px) !important;
-    }
+/* Produktove nazvy */
+[data-testid="productCardName"],
+.p-name,
+.p-name a,
+.product-title{
+    font-family: var(--font-body) !important;
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0 !important;
+    text-transform: uppercase !important;
+    color: #111 !important;
+    text-align: center !important;
+}
 
-    /* Produktove nazvy */
-    [data-testid="productCardName"],
-    .p-name,
-    .p-name a,
-    .product-title{
-        font-family: var(--font-body) !important;
-        font-size: 17px !important;
-        font-weight: 400 !important;
-        line-height: 1.35 !important;
-        letter-spacing: 0 !important;
-        text-transform: uppercase !important;
-        color: #111 !important;
-        text-align: center !important;
-    }
+/* Cena */
+.price,
+.price-final,
+.price.price-final,
+.price-final strong{
+    font-family: var(--font-body) !important;
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    color: #111 !important;
+    text-align: center !important;
+}
 
-    /* Cena */
-    .price,
-    .price-final,
-    .price.price-final,
-    .price-final strong{
-        font-family: var(--font-body) !important;
-        font-size: 17px !important;
-        font-weight: 400 !important;
-        color: #111 !important;
-        text-align: center !important;
-    }
+/* Tlacidla viac clean fashion look */
+.btn,
+button,
+a.btn{
+    font-family: var(--font-body) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
+    border-radius: 0 !important;
+}
 
-    /* Tlacidla viac clean fashion look */
-    .btn,
-    button,
-    a.btn{
-        font-family: var(--font-body) !important;
-        font-size: 15px !important;
-        font-weight: 400 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 0.02em !important;
-        border-radius: 0 !important;
-    }
+.btn.btn-primary,
+.btn.btn-conversion,
+.add-to-cart-button{
+    background: transparent !important;
+    color: #111 !important;
+    border: 1px solid var(--yarmi-gold) !important;
+    box-shadow: none !important;
+}
 
-    .btn.btn-primary,
-    .btn.btn-conversion,
-    .add-to-cart-button{
-        background: transparent !important;
-        color: #111 !important;
-        border: 1px solid var(--yarmi-gold) !important;
-        box-shadow: none !important;
-    }
+.btn.btn-primary:hover,
+.btn.btn-conversion:hover,
+.add-to-cart-button:hover{
+    background: var(--yarmi-gold) !important;
+    color: #111 !important;
+}
 
-    .btn.btn-primary:hover,
-    .btn.btn-conversion:hover,
-    .add-to-cart-button:hover{
-        background: var(--yarmi-gold) !important;
-        color: #111 !important;
-    }
+/* Breadcrumbs a drobny text */
+.breadcrumbs,
+.breadcrumbs a,
+nav.breadcrumbs,
+nav.breadcrumbs a{
+    font-family: var(--font-body) !important;
+    font-size: 15px !important;
+    color: #666 !important;
+}
 
-    /* Breadcrumbs a drobny text */
-    .breadcrumbs,
-    .breadcrumbs a,
-    nav.breadcrumbs,
-    nav.breadcrumbs a{
-        font-family: var(--font-body) !important;
-        font-size: 15px !important;
-        color: #666 !important;
-    }
+/* ===== GLOBAL TYPOGRAPHY LIGHTER ===== */
 
-    /* ===== GLOBAL TYPOGRAPHY LIGHTER ===== */
+body{
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.01em;
+}
 
-    body{
-        font-weight: 400 !important;
-        line-height: 1.6 !important;
-        letter-spacing: 0.01em;
-    }
+/* NADPISY */
+h1, h2, h3,
+.category-title,
+.section-title{
+    font-weight: 300 !important;
+    line-height: 1.2 !important;
+    letter-spacing: 0.02em !important;
+}
 
-    /* NADPISY */
-    h1, h2, h3,
-    .category-title,
-    .section-title{
-        font-weight: 300 !important;
-        line-height: 1.2 !important;
-        letter-spacing: 0.02em !important;
-    }
+/* TEXTY SEKCII (napr Garancia kvality) */
+.section,
+.section p,
+.section-text,
+.banner-text,
+.info-text{
+    font-weight: 400 !important;
+    line-height: 1.7 !important;
+    letter-spacing: 0.01em;
+}
 
-    /* TEXTY SEKCII (napr Garancia kvality) */
-    .section,
-    .section p,
-    .section-text,
-    .banner-text,
-    .info-text{
-        font-weight: 400 !important;
-        line-height: 1.7 !important;
-        letter-spacing: 0.01em;
-    }
+/* PRODUKTOVÉ NÁZVY */
+[data-testid="productCardName"],
+.p-name,
+.p-name a{
+    font-weight: 400 !important;
+    letter-spacing: 0.02em;
+    line-height: 1.4 !important;
+}
 
-    /* PRODUKTOVÉ NÁZVY */
-    [data-testid="productCardName"],
-    .p-name,
-    .p-name a{
-        font-weight: 400 !important;
-        letter-spacing: 0.02em;
-        line-height: 1.4 !important;
-    }
+/* CENA PRODUKTU */
+.price,
+.price-final,
+.price.price-final,
+.price-final strong{
+    font-weight: 400 !important;
+    letter-spacing: 0.01em;
+    font-size: 16px !important;
+}
 
-    /* CENA PRODUKTU */
-    .price,
-    .price-final,
-    .price.price-final,
-    .price-final strong{
-        font-weight: 400 !important;
-        letter-spacing: 0.01em;
-        font-size: 16px !important;
-    }
+/* AKCIE / STARE CENY */
+.price-standard{
+    font-weight: 300 !important;
+    opacity: 0.7;
+}
 
-    /* AKCIE / STARE CENY */
-    .price-standard{
-        font-weight: 300 !important;
-        opacity: 0.7;
-    }
+/* BUTTON TEXT */
+.btn,
+button{
+    font-weight: 400 !important;
+    letter-spacing: 0.06em !important;
+}
 
-    /* BUTTON TEXT */
-    .btn,
-    button{
-        font-weight: 400 !important;
-        letter-spacing: 0.06em !important;
-    }
-
-    /* TEXTY AKO GARANCIA / BENEFITY */
-    .benefitBanner__title,
-    .benefitBanner__text,
-    .benefitBanner,
-    .benefitBanner p{
-        font-weight: 400 !important;
-        line-height: 1.6 !important;
-        letter-spacing: 0.01em;
-    }
+/* TEXTY AKO GARANCIA / BENEFITY */
+.benefitBanner__title,
+.benefitBanner__text,
+.benefitBanner,
+.benefitBanner p{
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.01em;
 }
