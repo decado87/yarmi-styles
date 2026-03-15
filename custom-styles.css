@@ -1722,6 +1722,7 @@ button{
         overflow: visible !important;
         align-self: center !important;
         margin: 0 !important;                  /* FIX: theme adds margin-bottom:24px which offsets flex centering */
+        margin-top: -4px !important;           /* FIX: nav-wrapper line-height:24px / font-size:15px → half-leading ≈4px offset */
     }
 
     /* FIX: menu and nav-buttons stretched to 80px (theme), clamp to header height */
@@ -1734,6 +1735,7 @@ button{
     #header .navigation-buttons {
         height: 72px !important;
         align-items: center !important;
+        margin-top: -4px !important;           /* FIX: same half-leading offset as logo */
     }
 }
 
