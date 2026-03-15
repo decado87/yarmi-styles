@@ -177,11 +177,16 @@
 
 /* Menu na mobile */
 @media (max-width: 768px) {
+    #header {
+        height: 60px !important;
+    }
+
     .navigation-wrapper {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
-        padding: 10px 0 !important;
+        padding: 0 !important;
+        height: 60px !important;
         position: relative !important;
     }
 
@@ -189,7 +194,8 @@
     .navigation-wrapper .site-name {
         position: absolute !important;
         left: 50% !important;
-        transform: translateX(-50%) !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
         z-index: 20 !important;
         pointer-events: auto !important;
     }
@@ -1566,17 +1572,23 @@ a.btn{
 
 .btn.btn-primary,
 .btn.btn-conversion,
-.add-to-cart-button{
-    background: transparent !important;
+.add-to-cart-button,
+.btn.btn-conversion.add-to-cart-button{
+    background: var(--yarmi-gold) !important;
     color: #111 !important;
-    border: 1px solid var(--yarmi-gold) !important;
+    border: none !important;
     box-shadow: none !important;
+    border-radius: 0 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
 }
 
 .btn.btn-primary:hover,
 .btn.btn-conversion:hover,
 .add-to-cart-button:hover{
-    background: var(--yarmi-gold) !important;
+    background: #a8893c !important;
     color: #111 !important;
 }
 
@@ -1658,4 +1670,176 @@ button{
     font-weight: 400 !important;
     line-height: 1.6 !important;
     letter-spacing: 0.01em;
+}
+
+/* ═══════════════════════════════════════════
+   MODERN REDESIGN – inspired by labalancia
+   ═══════════════════════════════════════════ */
+
+/* ──── Header desktop ──── */
+@media (min-width: 769px) {
+    #header {
+        height: 72px !important;
+        border-bottom: 1px solid #e8e8e8 !important;
+        box-shadow: none !important;
+    }
+
+    .navigation-wrapper {
+        height: 72px !important;
+        align-items: center !important;
+        padding: 0 !important;
+    }
+
+    /* Logo – vertikálne centrovanie na desktop */
+    .navigation-wrapper .site-name,
+    #header .site-name {
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+    }
+}
+
+/* ──── Navigácia – moderný minimalistický look ──── */
+.menu-level-1 > li > a,
+#navigation .menu-level-1 > li > a {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+}
+
+/* ──── Announcement bar / info bar ──── */
+.top-info-bar {
+    background: #111 !important;
+    color: #e8e8e8 !important;
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+}
+
+.top-info-bar a,
+.top-info-bar .top-info-bar-text,
+.top-info-bar span {
+    color: #e8e8e8 !important;
+}
+
+/* ──── Sharp edges – no border radius (labalancia style) ──── */
+.btn,
+button,
+input,
+select,
+textarea,
+.product-item,
+.item-inner,
+.flag,
+.dialog,
+.content-window-in {
+    border-radius: 0 !important;
+}
+
+/* ──── Product card – clean hover zoom ──── */
+.item-inner {
+    border: none !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    transition: box-shadow 0.3s ease !important;
+}
+
+.item-inner:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+}
+
+.item-inner .image-wrapper img,
+.item-inner .product-image img {
+    transition: transform 0.5s ease !important;
+}
+
+.item-inner:hover .image-wrapper img,
+.item-inner:hover .product-image img {
+    transform: scale(1.04) !important;
+}
+
+/* ──── Product name – clean uppercase ──── */
+.p-name,
+.p-name a,
+[data-testid="productCardName"] {
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+}
+
+/* ──── Benefit banner – subtle dividers ──── */
+.benefitBanner {
+    border-top: 1px solid #e8e8e8 !important;
+    border-bottom: 1px solid #e8e8e8 !important;
+}
+
+.benefitBanner__item {
+    border-right: 1px solid #e8e8e8 !important;
+}
+
+.benefitBanner__item:last-child {
+    border-right: none !important;
+}
+
+/* ──── Gold accent links & highlights ──── */
+a:hover,
+.navigation-buttons a:hover {
+    color: var(--yarmi-gold) !important;
+}
+
+/* ──── Section headings spacing ──── */
+.homepage-group-title {
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    margin-bottom: 24px !important;
+}
+
+/* ──── Shoptet tabs (Najpredávanejšie / Výpredaj) ──── */
+.shp-tab-link {
+    letter-spacing: 0.08em !important;
+    font-size: 12px !important;
+    padding-bottom: 6px !important;
+    border-bottom: 2px solid transparent !important;
+    transition: border-color 0.2s, color 0.2s !important;
+}
+
+.shp-tab.active .shp-tab-link,
+.shp-tab-link:hover {
+    border-bottom-color: var(--yarmi-gold) !important;
+    color: var(--yarmi-gold) !important;
+}
+
+/* ──── Input fields clean ──── */
+.input-text,
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="number"] {
+    border: 1px solid #d0d0d0 !important;
+    border-radius: 0 !important;
+    padding: 10px 14px !important;
+}
+
+/* ──── Footer headings ──── */
+#footer h4,
+.footer h4 {
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    margin-bottom: 16px !important;
+}
+
+/* ──── Flag / badge ──── */
+.flag {
+    border-radius: 0 !important;
+    font-size: 10px !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    padding: 3px 7px !important;
+}
+
+.flag.flag-action,
+.flag.flag-discount {
+    background: var(--yarmi-gold) !important;
+    color: #111 !important;
 }
