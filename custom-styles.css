@@ -1721,6 +1721,19 @@ button{
         max-width: none !important;
         overflow: visible !important;
         align-self: center !important;
+        margin: 0 !important;                  /* FIX: theme adds margin-bottom:24px which offsets flex centering */
+    }
+
+    /* FIX: menu and nav-buttons stretched to 80px (theme), clamp to header height */
+    .navigation-wrapper .menu-level-1,
+    #header .menu-level-1 {
+        height: 72px !important;
+        align-items: center !important;
+    }
+    .navigation-wrapper .navigation-buttons,
+    #header .navigation-buttons {
+        height: 72px !important;
+        align-items: center !important;
     }
 }
 
