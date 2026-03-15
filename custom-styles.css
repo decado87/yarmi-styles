@@ -193,11 +193,14 @@
     #header .site-name,
     .navigation-wrapper .site-name {
         position: absolute !important;
-        left: 50% !important;
+        /* shift left ~25px so logo stays between hamburger and search icon */
+        left: calc(50% - 25px) !important;
         top: 50% !important;
         transform: translate(-50%, -50%) !important;
         z-index: 20 !important;
         pointer-events: auto !important;
+        max-width: 160px !important;
+        overflow: hidden !important;
     }
 
     #header .site-name a,
@@ -209,6 +212,10 @@
     }
 
     .navigation-buttons {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;      /* fill full 60px header, not just 40px */
+        height: auto !important;
         width: 100% !important;
         display: flex !important;
         justify-content: space-between !important;
@@ -216,6 +223,8 @@
         padding: 0 10px !important;
         gap: 0 !important;
         margin-left: 0 !important;
+        z-index: 25 !important;    /* above logo (z-index:20) */
+        background: transparent !important;
     }
 
     .navigation-buttons a[data-target="navigation"] {
@@ -241,6 +250,11 @@
     .flag {
         font-size: 9px !important;
         padding: 1px 5px !important;
+    }
+
+    /* Push page content below the 60px fixed header */
+    .overall-wrapper {
+        padding-top: 60px !important;
     }
 }
 
@@ -1690,11 +1704,19 @@ button{
         padding: 0 !important;
     }
 
-    /* Logo – vertikálne centrovanie na desktop */
+    /* Logo – centered on desktop (reset mobile offset) */
     .navigation-wrapper .site-name,
     #header .site-name {
+        left: 50% !important;
         top: 50% !important;
         transform: translate(-50%, -50%) !important;
+        max-width: none !important;
+        overflow: visible !important;
+    }
+
+    /* Push page content below the 72px fixed desktop header */
+    .overall-wrapper {
+        padding-top: 72px !important;
     }
 }
 
@@ -1766,18 +1788,16 @@ textarea,
     text-transform: uppercase !important;
 }
 
-/* ──── Benefit banner – subtle dividers ──── */
-.benefitBanner {
-    border-top: 1px solid #e8e8e8 !important;
-    border-bottom: 1px solid #e8e8e8 !important;
+/* ──── Benefit banner – no borders ──── */
+.benefitBanner,
+.benefitBanner.position--benefitHomepage,
+.benefitBanner.position--benefitProduct {
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .benefitBanner__item {
-    border-right: 1px solid #e8e8e8 !important;
-}
-
-.benefitBanner__item:last-child {
-    border-right: none !important;
+    border: none !important;
 }
 
 /* ──── Gold accent links & highlights ──── */
@@ -1842,4 +1862,26 @@ input[type="number"] {
 .flag.flag-discount {
     background: var(--yarmi-gold) !important;
     color: #111 !important;
+}
+
+/* ── Search window: prevent white background bleed under search icon ── */
+.content-window.search-window,
+.search-window {
+    overflow: hidden !important;
+}
+.navigation-buttons .toggle-window {
+    background: transparent !important;
+}
+
+/* ── Product detail: remove gray borders from info blocks ── */
+.p-basic-info-block {
+    border: none !important;
+    box-shadow: none !important;
+}
+.p-to-cart-block {
+    border: none !important;
+    box-shadow: none !important;
+}
+.shp-tabs-holder {
+    border-top: none !important;
 }
