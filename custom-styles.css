@@ -1694,29 +1694,33 @@ button{
 @media (min-width: 769px) {
     #header {
         height: 72px !important;
-        border-bottom: 1px solid #e8e8e8 !important;
+        border-bottom: none !important;        /* FIX: remove gray line between header and content */
         box-shadow: none !important;
     }
 
     .navigation-wrapper {
         height: 72px !important;
+        min-height: 0 !important;              /* FIX: theme has min-height:80px, override it */
         align-items: center !important;
         padding: 0 !important;
     }
 
-    /* Logo – centered on desktop (reset mobile offset) */
-    .navigation-wrapper .site-name,
-    #header .site-name {
-        left: 50% !important;
-        top: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        max-width: none !important;
-        overflow: visible !important;
+    /* FIX: desktop header is position:static (not fixed), so no padding-top needed.
+       The 72px header simply pushes content down naturally in document flow. */
+    .overall-wrapper {
+        padding-top: 0 !important;
     }
 
-    /* Push page content below the 72px fixed desktop header */
-    .overall-wrapper {
-        padding-top: 72px !important;
+    /* FIX: reset mobile absolute positioning — let flexbox center the logo */
+    .navigation-wrapper .site-name,
+    #header .site-name {
+        position: static !important;           /* back in flex flow */
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;            /* remove the erroneous -50%,-50% shift */
+        max-width: none !important;
+        overflow: visible !important;
+        align-self: center !important;
     }
 }
 
@@ -1884,4 +1888,21 @@ input[type="number"] {
 }
 .shp-tabs-holder {
     border-top: none !important;
+}
+
+/* ── Desktop: login/account top-nav button — transparent background ── */
+.top-nav-button {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* ── Mobile: navigation-buttons container is pointer-events:none so logo
+   underneath can receive clicks; individual buttons remain clickable ── */
+@media (max-width: 768px) {
+    .navigation-buttons {
+        pointer-events: none !important;
+    }
+    .navigation-buttons > * {
+        pointer-events: auto !important;
+    }
 }
