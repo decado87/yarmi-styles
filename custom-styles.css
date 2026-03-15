@@ -1921,3 +1921,30 @@ input[type="number"] {
         pointer-events: auto !important;
     }
 }
+
+/* ── Product detail: gold separator lines between sections ── */
+.p-short-description,
+.p-variants-block,
+.p-basic-info-block,
+.p-to-cart-block,
+.p-param-block,
+.shp-tabs-holder {
+    border-top: 1px solid var(--yarmi-gold) !important;
+    padding-top: 16px !important;
+    margin-top: 8px !important;
+}
+
+/* ── Homepage advantages: 2 per row on mobile ── */
+@media (max-width: 768px) {
+    .benefitBanner.position--benefitHomepage {
+        flex-wrap: wrap !important;
+    }
+    .benefitBanner__item {
+        flex-basis: 50% !important;
+        max-width: 50% !important;
+        flex-grow: 0 !important;
+        box-sizing: border-box !important;
+        padding: 0 8px 16px !important;
+        border: none !important;
+    }
+}
