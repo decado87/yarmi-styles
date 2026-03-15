@@ -1541,7 +1541,9 @@ h3{
 /* Cena */
 .price,
 .price-final,
-.price.price-final,
+div.price,
+div.price-final,
+div.price.price-final,
 .price-final strong{
     font-family: var(--font-body) !important;
     font-size: 15px !important;
