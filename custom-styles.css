@@ -1496,8 +1496,10 @@ body{
 
 /* Hlavne nadpisy */
 h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
 .category-title,
 .section-title,
+.homepage-group-title,
 .products-block .title,
 .product-top h1{
     font-family: var(--font-heading) !important;
