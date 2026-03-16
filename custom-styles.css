@@ -1948,3 +1948,17 @@ input[type="number"] {
         border: none !important;
     }
 }
+/* ── Detail button: outline style (gold border, white bg, dark text) ── */
+/* Košík button (.btn-conversion) zostáva nezmenený (plné zlaté) */
+.btn.btn-primary {
+    background: #fff !important;
+    background-color: #fff !important;
+    color: #111 !important;
+    border: 1px solid var(--yarmi-gold) !important;
+    border-color: var(--yarmi-gold) !important;
+}
+.btn.btn-primary:hover {
+    background: var(--yarmi-gold) !important;
+    background-color: var(--yarmi-gold) !important;
+    color: #111 !important;
+}
