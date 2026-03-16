@@ -1934,20 +1934,7 @@ input[type="number"] {
     margin-top: 8px !important;
 }
 
-/* ── Homepage advantages: 2 per row on mobile ── */
-@media (max-width: 768px) {
-    .benefitBanner.position--benefitHomepage {
-        flex-wrap: wrap !important;
-    }
-    .benefitBanner__item {
-        flex-basis: 50% !important;
-        max-width: 50% !important;
-        flex-grow: 0 !important;
-        box-sizing: border-box !important;
-        padding: 0 8px 16px !important;
-        border: none !important;
-    }
-}
+
 /* ── Detail button: outline style (gold border, white bg, dark text) ── */
 /* Košík button (.btn-conversion) zostáva nezmenený (plné zlaté) */
 .btn.btn-primary {
