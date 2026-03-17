@@ -1952,7 +1952,7 @@ input[type="number"] {
 
 /* ── Announcement bar (CSS-only, body::before) ── */
 body::before {
-    content: "Doprava už od 2,90\00a0€\00a0\00a0\00a0·\00a0\00a0\00a0Doručenie 1\2013 2 pracovné dni\00a0\00a0\00a0·\00a0\00a0\00a0Doprava nad 50\00a0€ zdarma";
+    content: "Doprava u\00017E od 2,90\0000A0\0020AC\0000A0\0000A0\0000A0\0000B7\0000A0\0000A0\0000A0Doru\00010Denie 1\0020132 pracovn\0000E9 dni\0000A0\0000A0\0000A0\0000B7\0000A0\0000A0\0000A0Doprava nad 50\0000A0\0020AC zdarma";
     display: block;
     position: fixed;
     top: 0;
