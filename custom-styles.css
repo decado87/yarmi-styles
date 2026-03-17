@@ -1934,20 +1934,7 @@ input[type="number"] {
     margin-top: 8px !important;
 }
 
-/* ── Homepage advantages: 2 per row on mobile ── */
-@media (max-width: 768px) {
-    .benefitBanner.position--benefitHomepage {
-        flex-wrap: wrap !important;
-    }
-    .benefitBanner__item {
-        flex-basis: 50% !important;
-        max-width: 50% !important;
-        flex-grow: 0 !important;
-        box-sizing: border-box !important;
-        padding: 0 8px 16px !important;
-        border: none !important;
-    }
-}
+
 /* ── Detail button: outline style (gold border, white bg, dark text) ── */
 /* Košík button (.btn-conversion) zostáva nezmenený (plné zlaté) */
 .btn.btn-primary {
@@ -1961,44 +1948,4 @@ input[type="number"] {
     background: var(--yarmi-gold) !important;
     background-color: var(--yarmi-gold) !important;
     color: #111 !important;
-}
-
-/* ── Announcement bar (CSS-only, body::before) ── */
-body::before {
-    content: "Doprava u\00017E od 2,90\0000A0\0020AC\0000A0\0000A0\0000A0\0000B7\0000A0\0000A0\0000A0Doru\00010Denie 1\0020132 pracovn\0000E9 dni\0000A0\0000A0\0000A0\0000B7\0000A0\0000A0\0000A0Doprava nad 50\0000A0\0020AC zdarma";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 36px;
-    line-height: 36px;
-    background: #111 !important;
-    color: #fff !important;
-    font-family: 'Instrument Sans', sans-serif !important;
-    font-size: 12px !important;
-    font-weight: 400 !important;
-    letter-spacing: 0.07em !important;
-    text-align: center !important;
-    text-transform: none !important;
-    z-index: 10000;
-    box-sizing: border-box;
-    padding: 0 16px;
-}
-
-/* Desktop: push static header below the bar */
-@media (min-width: 769px) {
-    .overall-wrapper {
-        padding-top: 36px !important;
-    }
-}
-
-/* Mobile: push fixed header below the bar */
-@media (max-width: 768px) {
-    #header {
-        top: 36px !important;
-    }
-    .overall-wrapper {
-        padding-top: 96px !important;   /* 36px bar + 60px mobile header */
-    }
 }
