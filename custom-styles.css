@@ -1949,3 +1949,19 @@ input[type="number"] {
     background-color: var(--yarmi-gold) !important;
     color: #111 !important;
 }
+
+/* ── Announcement bar: layout offsets ── */
+/* Bar itself je injektovaný cez <script> v HEAD šablóne */
+@media (min-width: 769px) {
+    .overall-wrapper {
+        padding-top: 36px !important;   /* push static header below fixed bar */
+    }
+}
+@media (max-width: 768px) {
+    #header {
+        top: 36px !important;           /* push fixed mobile header below bar */
+    }
+    .overall-wrapper {
+        padding-top: 96px !important;   /* 36px bar + 60px mobile header */
+    }
+}
