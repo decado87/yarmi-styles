@@ -1950,16 +1950,40 @@ input[type="number"] {
     color: #111 !important;
 }
 
-/* ── Announcement bar: layout offsets ── */
-/* Bar itself je injektovaný cez <script> v HEAD šablóne */
+/* ── Announcement bar (CSS-only, body::before) ── */
+body::before {
+    content: "Doprava u\017E od 2,90\A0\20AC\A0\A0\A0\B7\A0\A0\A0Doru\010Denie 1\20132 pracovn\E9 dni\A0\A0\A0\B7\A0\A0\A0Doprava nad 50\A0\20AC zdarma";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    line-height: 36px;
+    background: #111 !important;
+    color: #fff !important;
+    font-family: 'Instrument Sans', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.07em !important;
+    text-align: center !important;
+    text-transform: none !important;
+    z-index: 10000;
+    box-sizing: border-box;
+    padding: 0 16px;
+}
+
+/* Desktop: push static header below the bar */
 @media (min-width: 769px) {
     .overall-wrapper {
-        padding-top: 36px !important;   /* push static header below fixed bar */
+        padding-top: 36px !important;
     }
 }
+
+/* Mobile: push fixed header below the bar */
 @media (max-width: 768px) {
     #header {
-        top: 36px !important;           /* push fixed mobile header below bar */
+        top: 36px !important;
     }
     .overall-wrapper {
         padding-top: 96px !important;   /* 36px bar + 60px mobile header */
