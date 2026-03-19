@@ -2048,11 +2048,61 @@ body::before {
    v4 – 2-riadkový header: [logo + ikony] / [nav kategórie]
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Announcement bar blush záloha ── */
-body::before { background: #F5EDE4 !important; color: #7A5C44 !important; }
+/* ═══════════════════════════════════════════
+   ANNOUNCEMENT BAR – kompletné pravidlá
+   ═══════════════════════════════════════════ */
+
+body::before {
+    content: "Doprava už od 2,90\00A0€ · Doručenie 1–2 pracovné dni · Doprava nad 50\00A0€ zdarma" !important;
+    display: block !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    background: #F5EDE4 !important;
+    color: #7A5C44 !important;
+    font-family: 'Instrument Sans', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.25em !important;
+    text-align: center !important;
+    z-index: 9999 !important;
+}
+
+@media (min-width: 769px) {
+    .overall-wrapper { padding-top: 36px !important; }
+}
+
 @media (max-width: 768px) {
-    body::before { background: #F5EDE4 !important; }
-    body::after  { color: #7A5C44 !important; background: #F5EDE4 !important; }
+    body::before {
+        content: "" !important;
+        background: #F5EDE4 !important;
+        height: 36px !important;
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important; left: 0 !important; right: 0 !important;
+        z-index: 9999 !important;
+    }
+    body::after {
+        content: "Doprava už od 2,90\00A0€" !important;
+        font-family: 'Instrument Sans', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.25em !important;
+        color: #7A5C44 !important;
+        display: block !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        height: 36px !important;
+        line-height: 36px !important;
+        text-align: center !important;
+        z-index: 9999 !important;
+        animation: yarmi-ticker 15s infinite !important;
+    }
 }
 
 /* ════════════════════════
