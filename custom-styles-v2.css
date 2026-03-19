@@ -2432,8 +2432,8 @@ body::before {
     }
     #navigation .menu-level-1 > li > a:hover { color: #c8a84e !important; background: #FAF7F2 !important; }
 
-    /* 36px announcement bar (fixed) – header je static */
-    .overall-wrapper { padding-top: 36px !important; }
+    /* 36px announcement bar + 60px fixed header = 96px */
+    .overall-wrapper { padding-top: 96px !important; }
 }
 
 /* ── Search ── */
