@@ -2286,7 +2286,7 @@ body::before {
     .menu-level-1 > li > a,
     nav#navigation .menu-level-1 > li > a {
         font-family: 'Instrument Sans', sans-serif !important;
-        font-size: 11px !important;
+        font-size: 12px !important;
         font-weight: 500 !important;
         letter-spacing: 0.13em !important;
         text-transform: uppercase !important;
@@ -2294,6 +2294,7 @@ body::before {
         text-decoration: none !important;
         white-space: nowrap !important;
         position: relative !important;
+        top: -10px !important;
         padding-bottom: 3px !important;
         transition: color 0.2s ease !important;
     }
@@ -2379,7 +2380,7 @@ body::before {
         align-items: center !important;
         color: #2C2417 !important;
         font-family: var(--font-logo) !important;
-        font-size: 20px !important;
+        font-size: 24px !important;
         font-weight: 400 !important;
         letter-spacing: 0.32em !important;
         text-transform: uppercase !important;
@@ -2390,7 +2391,7 @@ body::before {
     .site-name a::after {
         content: "women's fashion" !important;
         font-family: 'Instrument Sans', sans-serif !important;
-        font-size: 7px !important;
+        font-size: 8px !important;
         letter-spacing: 0.3em !important;
         color: #c8a84e !important;
         margin-top: 4px !important;
