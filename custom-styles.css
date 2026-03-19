@@ -1949,3 +1949,87 @@ input[type="number"] {
     background-color: var(--yarmi-gold) !important;
     color: #111 !important;
 }
+
+
+/* ══════════════════════════════════════════════════════════
+   ANNOUNCEMENT BAR (čierna lišta hore)
+   Desktop: statický text, všetky 3 správy naraz
+   Mobil: carousel – 3 správy sa striedajú po 3s s fade
+   ══════════════════════════════════════════════════════════ */
+
+/* Desktop: centered static text */
+body::before {
+    content: "Doprava u\017E od 2,90\u00A0\u20AC \u00B7 Doru\u010Denie 1\u20132 pracovn\u00E9 dni \u00B7 Doprava nad 50\u00A0\u20AC zdarma";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 36px;
+    line-height: 36px;
+    background: #111;
+    color: #fff;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.07em;
+    text-align: center;
+    text-transform: none;
+    z-index: 10000;
+    padding: 0 16px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Desktop layout offset */
+@media (min-width: 769px) {
+    .overall-wrapper { padding-top: 36px !important; }
+}
+
+/* Mobile: background-only bar + cycling text via body::after */
+@media (max-width: 768px) {
+    body::before {
+        content: "";
+    }
+    body::after {
+        content: "Doprava u\017E od 2,90\u00A0\u20AC";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 36px;
+        line-height: 36px;
+        color: #fff;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.07em;
+        text-transform: none;
+        text-align: center;
+        padding: 0 16px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        overflow: hidden;
+        z-index: 10001;
+        animation: yarmi-ticker 9s step-start infinite;
+    }
+    #header { top: 36px !important; }
+    .overall-wrapper { padding-top: 96px !important; }
+    #navigation[data-collapsible="true"] { top: 36px !important; height: calc(100% - 36px) !important; }
+}
+
+@keyframes yarmi-ticker {
+    0%      { content: "Doprava u\017E od 2,90\u00A0\u20AC"; opacity: 0; }
+    3%      { opacity: 1; }
+    30%     { opacity: 1; }
+    33%     { opacity: 0; content: "Doprava u\017E od 2,90\u00A0\u20AC"; }
+    33.01%  { content: "Doru\u010Denie 1\u20132 pracovn\u00E9 dni"; opacity: 0; }
+    36%     { opacity: 1; }
+    63%     { opacity: 1; }
+    66%     { opacity: 0; content: "Doru\u010Denie 1\u20132 pracovn\u00E9 dni"; }
+    66.01%  { content: "Doprava nad 50\u00A0\u20AC zdarma"; opacity: 0; }
+    69%     { opacity: 1; }
+    96%     { opacity: 1; }
+    99%     { opacity: 0; content: "Doprava nad 50\u00A0\u20AC zdarma"; }
+    100%    { content: "Doprava u\017E od 2,90\u00A0\u20AC"; opacity: 0; }
+}
