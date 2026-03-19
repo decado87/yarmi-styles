@@ -2110,12 +2110,12 @@ body::before {
    ════════════════════════ */
 @media (min-width: 769px) {
 
-    /* Header: 2 riadky – riadok 1: 64px, riadok 2: 42px */
+    /* Header: 2 riadky – riadok 1: 52px, riadok 2: 42px */
     #header {
         background: #FFFFFF !important;
-        border-bottom: 2px solid #F0E8E0 !important;
+        border-bottom: none !important;
         box-shadow: none !important;
-        height: 106px !important;
+        height: 94px !important;
         position: static !important;
         overflow: visible !important;
     }
@@ -2125,7 +2125,7 @@ body::before {
         display: flex !important;
         flex-direction: column !important;
         align-items: stretch !important;
-        height: 106px !important;
+        height: 94px !important;
         min-height: 0 !important;
         padding: 0 !important;
         background: transparent !important;
@@ -2142,7 +2142,7 @@ body::before {
         top: 0 !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
-        height: 64px !important;
+        height: 52px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
@@ -2219,7 +2219,7 @@ body::before {
         position: absolute !important;
         top: 0 !important;
         right: 40px !important;
-        height: 64px !important;
+        height: 52px !important;
         display: flex !important;
         align-items: center !important;
         gap: 22px !important;
@@ -2250,8 +2250,8 @@ body::before {
     /* ─── RIADOK 2: Nav kategórie – centrované ─── */
     nav#navigation .navigation-in {
         height: 42px !important;
-        margin-top: 64px !important;          /* pod logo riadkom */
-        border-top: 1px solid #F0E8E0 !important;
+        margin-top: 52px !important;          /* pod logo riadkom */
+        border-top: 1px solid #c8a84e !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
