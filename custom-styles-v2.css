@@ -2385,7 +2385,7 @@ body::before {
         letter-spacing: 0.32em !important;
         text-transform: uppercase !important;
         text-decoration: none !important;
-        line-height: 1 !important;
+        line-height: 0.85 !important;
         white-space: nowrap !important;
     }
     .site-name a::after {
@@ -2394,7 +2394,7 @@ body::before {
         font-size: 8px !important;
         letter-spacing: 0.3em !important;
         color: #c8a84e !important;
-        margin-top: -2px !important;
+        margin-top: 0px !important;
         white-space: nowrap !important;
     }
 
