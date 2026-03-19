@@ -2088,7 +2088,7 @@ body::before {
         z-index: 9999 !important;
     }
     body::after {
-        content: "Doprava už od 2,90\00A0€" !important;
+        content: "Doprava už od 2,90\00A0€";
         font-family: 'Instrument Sans', sans-serif !important;
         font-size: 11px !important;
         font-weight: 400 !important;
@@ -2103,7 +2103,7 @@ body::before {
         line-height: 36px !important;
         text-align: center !important;
         z-index: 9999 !important;
-        animation: yarmi-ticker 15s infinite !important;
+        animation: yarmi-ticker 15s step-start infinite !important;
     }
 }
 
@@ -2394,7 +2394,7 @@ body::before {
         font-size: 8px !important;
         letter-spacing: 0.3em !important;
         color: #c8a84e !important;
-        margin-top: 4px !important;
+        margin-top: 1px !important;
         white-space: nowrap !important;
     }
 
