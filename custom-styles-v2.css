@@ -2394,7 +2394,7 @@ body::before {
         font-size: 8px !important;
         letter-spacing: 0.3em !important;
         color: #c8a84e !important;
-        margin-top: 1px !important;
+        margin-top: -2px !important;
         white-space: nowrap !important;
     }
 
