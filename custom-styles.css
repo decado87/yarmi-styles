@@ -2013,7 +2013,7 @@ body::before {
         white-space: nowrap !important;
         overflow: hidden !important;
         z-index: 10001 !important;
-        animation: yarmi-ticker 9s step-start infinite !important;
+        animation: yarmi-ticker 15s step-start infinite !important;
     }
     #header { top: 36px !important; }
     .overall-wrapper { padding-top: 96px !important; }
