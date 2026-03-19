@@ -284,6 +284,7 @@
 @media (max-width: 768px) {
     /* Krížik – nech je vždy navrchu */
     .navigation-close {
+        display: none !important; /* Hide duplicate close button on mobile */
         position: absolute !important;
         top: 15px !important;
         left: 15px !important;
@@ -2443,6 +2444,18 @@ body::before {
 
     /* 36px announcement bar + 60px fixed header = 96px */
     .overall-wrapper { padding-top: 96px !important; }
+}
+
+/* Mobile hamburger trigger: force gold icon/text color */
+@media (max-width: 768px) {
+    .navigation-buttons .toggle-window[data-target="navigation"],
+    .navigation-buttons .toggle-window[data-target="navigation"] *,
+    .menu-helper.visible[data-testid="hamburgerMenu"],
+    .menu-helper.visible[data-testid="hamburgerMenu"] *,
+    .menu-helper.visible[data-testid="hamburgerMenu"] > span {
+        color: var(--yarmi-gold, #c8a84e) !important;
+        fill: var(--yarmi-gold, #c8a84e) !important;
+    }
 }
 
 /* ── Search ── */
