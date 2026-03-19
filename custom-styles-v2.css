@@ -2163,6 +2163,8 @@ body::before { background: #F5EDE4 !important; color: #7A5C44 !important; }
     }
 
     /* Navigation-buttons: pravý horný roh (riadok 1) */
+    .navigation-wrapper .navigation-buttons,
+    #header .navigation-buttons,
     .navigation-buttons {
         position: absolute !important;
         top: 0 !important;
