@@ -2418,8 +2418,8 @@ body::before {
     /* Hamburger menu overlay */
     #navigation[data-collapsible="true"] {
         background: #FFFFFF !important;
-        top: 36px !important;
-        height: calc(100% - 36px) !important;
+        top: 96px !important;
+        height: calc(100% - 96px) !important;
     }
     #navigation .menu-level-1 > li > a {
         color: #4a3f37 !important;
