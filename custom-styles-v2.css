@@ -308,7 +308,7 @@
         display: inline !important;
     }
 
-     /*Zobraziť text "Menu" vedľa hamburger ikonky – menší, decentný */
+    /*Zobraziť text "Menu" vedľa hamburger ikonky – menší, decentný */
     a.toggle-window[data-testid="hamburgerMenu"] {
         display: inline-flex;
         align-items: center;
@@ -425,13 +425,14 @@
     list-style: none;
 }
 
-.widget-parameter-wrapper.moved-under-price a {
+.widget-parameter-wrapper.moved-under-price a,
+.widget-parameter-value a {
     display: inline-block;
     padding: 4px 10px;
     font-size: 13px;
     font-weight: 500;
-    color: #1a1a1a;
-    background: #f6f6f6;
+    color: #1a1a1a !important;;
+    background: #c8a84e !important;
     border-radius: 4px;
     text-decoration: none;
     transition: background .2s ease, color .2s ease;
@@ -2210,6 +2211,7 @@ body::before {
         width: 100% !important;
         position: static !important;
         background: transparent !important;
+        overflow: visible !important;
     }
 
     /* Navigation-buttons: pravý horný roh (riadok 1) */
@@ -2270,6 +2272,13 @@ body::before {
         list-style: none !important;
         margin: 0 !important;
         padding: 0 !important;
+    }
+
+    nav#navigation .menu-level-1 > li {
+        height: 42px !important;
+        display: flex !important;
+        align-items: center !important;
+        overflow: visible !important;
     }
 
     /* Nav linky */
@@ -2399,7 +2408,7 @@ body::before {
         align-items: center !important;
         gap: 14px !important;
         height: auto !important;
-        pointer-events: auto !important;
+        pointer-events: none !important;
     }
     .navigation-buttons > * { pointer-events: auto !important; }
 
