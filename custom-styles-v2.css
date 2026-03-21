@@ -2473,46 +2473,25 @@ a:hover { color: #c8a84e !important; }
 
 /* ═══════════════════════════════════════════════════════════════
    HOMEPAGE – Hero banner
-   Shoptet: dklab slider plugin → .banners-content.body-banners
+   Reálne selektory: .dklabSliderplusCarousel / .dklabSliderplusHomeWrapper
    ═══════════════════════════════════════════════════════════════ */
 
-/* Kontajner: plná výška viewportu mínus header (36px bar + 94px header = 130px) */
-.banners-content.body-banners {
-    position: relative !important;
+/* Výška image oblasti – calc(100vh - 130px) = viewport mínus bar+header */
+.dklabSliderplusHomeWrapper,
+.dklabSliderplusHome {
     height: calc(100vh - 130px) !important;
     min-height: 560px !important;
     max-height: 900px !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
 }
 
-/* Gradient overlay – tmavý vľavo, priehľadný vpravo */
-.banners-content.body-banners::after {
-    content: '' !important;
-    position: absolute !important;
-    inset: 0 !important;
-    background: linear-gradient(to right, rgba(44,36,23,0.45) 0%, rgba(44,36,23,0.05) 60%) !important;
-    z-index: 2 !important;
-    pointer-events: none !important;
-}
-
-/* Splide slider (dklab používa Splide.js) – vypĺňa celý kontajner */
-.banners-content.body-banners .splide,
-.banners-content.body-banners .splide__track,
-.banners-content.body-banners .splide__list {
+/* Swiper slides a obrázky – cover, poloha centre top */
+.dklabSliderplusHome .swiper-slide,
+.dklabSliderplusHome .swiper-wrapper {
     height: 100% !important;
 }
 
-.banners-content.body-banners .splide__slide {
-    height: 100% !important;
-    overflow: hidden !important;
-}
-
-/* Bannery a obrázky – cover, poloha centre top */
-.banners-content.body-banners .splide__slide img,
-.banners-content.body-banners .banner img,
-.banners-content.body-banners img {
+.dklabSliderplusHome .swiper-slide img,
+.dklabSliderplusHome img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
@@ -2520,85 +2499,71 @@ a:hover { color: #c8a84e !important; }
     display: block !important;
 }
 
-/* Šípky slidera nad overlayom */
-.banners-content.body-banners .splide__arrow {
-    z-index: 3 !important;
-    background: rgba(255,255,255,0.15) !important;
-    border: 1px solid rgba(255,255,255,0.3) !important;
-    width: 44px !important;
-    height: 44px !important;
-    border-radius: 0 !important;
-}
-.banners-content.body-banners .splide__arrow svg {
-    fill: #fff !important;
-    width: 16px !important;
-    height: 16px !important;
-}
-.banners-content.body-banners .splide__arrow:hover {
-    background: rgba(200,168,78,0.5) !important;
+/* Gradient overlay – tmavý vľavo, priehľadný vpravo */
+.dklabSliderplusHomeWrapper {
+    position: relative !important;
 }
 
-/* Dots (pagination) */
-.banners-content.body-banners .splide__pagination {
+.dklabSliderplusHomeWrapper::after {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: linear-gradient(to right, rgba(44,36,23,0.45) 0%, rgba(44,36,23,0.05) 60%) !important;
     z-index: 3 !important;
-    bottom: 20px !important;
-}
-.banners-content.body-banners .splide__pagination__page {
-    background: rgba(255,255,255,0.5) !important;
-    border-radius: 0 !important;
-    width: 24px !important;
-    height: 2px !important;
-    margin: 0 4px !important;
-    transform: none !important;
-    transition: background 0.2s !important;
-}
-.banners-content.body-banners .splide__pagination__page.is-active {
-    background: #c8a84e !important;
-    transform: none !important;
+    pointer-events: none !important;
 }
 
-/* Mobile: kratší hero */
+/* Šípky a pagination nav stránky nad overlayom */
+.dklabSliderplusCarousel .carousel-control-prev,
+.dklabSliderplusCarousel .carousel-control-next,
+.dklabSliderplusCarousel .carousel-indicators {
+    z-index: 4 !important;
+}
+
+/* Mobile: kratší hero, gradient zdola */
 @media (max-width: 768px) {
-    .banners-content.body-banners {
+    .dklabSliderplusHomeWrapper,
+    .dklabSliderplusHome {
         height: 78vh !important;
         min-height: 400px !important;
         max-height: 620px !important;
     }
-    .banners-content.body-banners::after {
-        background: linear-gradient(to bottom, rgba(44,36,23,0.15) 0%, rgba(44,36,23,0.5) 100%) !important;
+    .dklabSliderplusHomeWrapper::after {
+        background: linear-gradient(to bottom, rgba(44,36,23,0.1) 0%, rgba(44,36,23,0.5) 100%) !important;
     }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════
-   HOMEPAGE – Benefit strip (promo strip)
-   Shoptet: .benefitBanner.position--benefitHomepage
+   HOMEPAGE – Benefit strip
+   Reálna štruktúra: .benefitBanner__picture > img + .benefitBanner__content > strong + p
+   Vyššia špecificita: body.in-index prefix
    ═══════════════════════════════════════════════════════════════ */
 
-/* Wrapper: blush bg, border hore/dole, 3 stĺpce */
-.benefitBanner.position--benefitHomepage,
-.benefitBanner {
-    background: #F5EDE4 !important;
+/* Wrapper: blush bg, border hore/dole, grid 4 stĺpce (Shoptet má 4 položky) */
+body.in-index .benefitBanner {
+    background-color: #F5EDE4 !important;
     border-top: 1px solid #F0E8E0 !important;
     border-bottom: 1px solid #F0E8E0 !important;
     border-left: none !important;
     border-right: none !important;
     box-shadow: none !important;
     display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: repeat(4, 1fr) !important;
     gap: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
-    max-width: none !important;
+    max-width: 100% !important;
     width: 100% !important;
 }
 
-/* Každá položka */
-.benefitBanner__item {
+/* Každá položka: flex row, ikona + text */
+body.in-index .benefitBanner__item {
     display: flex !important;
+    flex-direction: row !important;
     align-items: center !important;
     gap: 16px !important;
-    padding: 28px 32px !important;
+    padding: 28px 24px !important;
     border-right: 1px solid #F0E8E0 !important;
     border-top: none !important;
     border-bottom: none !important;
@@ -2606,65 +2571,51 @@ a:hover { color: #c8a84e !important; }
     background: transparent !important;
 }
 
-.benefitBanner__item:last-child {
+body.in-index .benefitBanner__item:last-child {
     border-right: none !important;
 }
 
-/* Ikona – zlatá, stroke-only */
-.benefitBanner__icon,
-.benefitBanner__itemIcon {
+/* Ikona obrázok – gold filter + pevná veľkosť */
+body.in-index .benefitBanner__picture {
+    flex-shrink: 0 !important;
     width: 36px !important;
     height: 36px !important;
-    min-width: 36px !important;
-    flex-shrink: 0 !important;
-    color: #c8a84e !important;
-    fill: none !important;
-    stroke: #c8a84e !important;
-    stroke-width: 1.4 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
-.benefitBanner__icon img,
-.benefitBanner__itemIcon img {
+body.in-index .benefitBanner__img {
     width: 36px !important;
     height: 36px !important;
     object-fit: contain !important;
-    filter: invert(68%) sepia(33%) saturate(500%) hue-rotate(5deg) brightness(90%) !important;
+    filter: invert(68%) sepia(33%) saturate(500%) hue-rotate(5deg) brightness(85%) !important;
 }
 
-.benefitBanner__icon svg,
-.benefitBanner__itemIcon svg {
-    width: 36px !important;
-    height: 36px !important;
-    stroke: #c8a84e !important;
-    fill: none !important;
-    stroke-width: 1.4 !important;
-}
-
-/* Text blok vedľa ikony */
-.benefitBanner__content,
-.benefitBanner__itemContent {
+/* Text blok */
+body.in-index .benefitBanner__content {
     display: flex !important;
     flex-direction: column !important;
     gap: 3px !important;
 }
 
-/* Nadpis */
-.benefitBanner__title,
-.benefitBanner__itemTitle {
+/* Nadpis (strong) */
+body.in-index .benefitBanner__content strong,
+body.in-index .benefitBanner__content b {
     font-family: 'Instrument Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: 600 !important;
     letter-spacing: 0.1em !important;
     text-transform: uppercase !important;
     color: #2C2417 !important;
-    margin: 0 0 3px 0 !important;
+    display: block !important;
     line-height: 1.3 !important;
 }
 
-/* Popis */
-.benefitBanner__text,
-.benefitBanner__itemText,
-.benefitBanner p {
+/* Popis (p alebo span) */
+body.in-index .benefitBanner__content p,
+body.in-index .benefitBanner__content span,
+body.in-index .benefitBanner__text {
     font-family: 'Instrument Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: 400 !important;
@@ -2674,20 +2625,17 @@ a:hover { color: #c8a84e !important; }
     margin: 0 !important;
 }
 
-/* Mobile: vertikálny stack */
+/* Mobile: 1 stĺpec */
 @media (max-width: 768px) {
-    .benefitBanner.position--benefitHomepage,
-    .benefitBanner {
+    body.in-index .benefitBanner {
         grid-template-columns: 1fr !important;
     }
-
-    .benefitBanner__item {
+    body.in-index .benefitBanner__item {
         border-right: none !important;
         border-bottom: 1px solid #F0E8E0 !important;
-        padding: 20px 20px !important;
+        padding: 16px 20px !important;
     }
-
-    .benefitBanner__item:last-child {
+    body.in-index .benefitBanner__item:last-child {
         border-bottom: none !important;
     }
 }
