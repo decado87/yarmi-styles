@@ -2309,5 +2309,244 @@ select.form-control:focus,
 }
 
 /* ═══════════════════════════════════════════════════════
+   OPRAVY HOMEPAGE – v3.1  (2026-03-21)
+   Opravuje: benefit banner, dklab grid, yarmi-welcome
+   ═══════════════════════════════════════════════════════ */
+
+/* ── 1. BENEFIT BANNER: blush pozadie (podľa návrhu) ── */
+.container--bannersBenefit {
+    background: var(--yarmi-blush) !important;
+    border-top: 1px solid var(--yarmi-border) !important;
+    border-bottom: 1px solid var(--yarmi-border) !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* ── 2. SEKCIA TABS: column layout (eyebrow nad tabmi) ── */
+.homepage-tabs-wrapper .shp-tabs-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding-bottom: 0 !important;
+}
+.homepage-tabs-wrapper .shp-tabs-row::before {
+    display: block !important;
+    margin-bottom: 4px !important;
+}
+.homepage-tabs-wrapper .shp-tabs-holder {
+    display: flex !important;
+    justify-content: center !important;
+}
+/* Gold divider pod tab navigáciou */
+.homepage-tabs-wrapper .shp-tabs.homepage-tabs {
+    position: relative !important;
+    padding-bottom: 16px !important;
+}
+.homepage-tabs-wrapper .shp-tabs.homepage-tabs::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 40px !important;
+    height: 1px !important;
+    background: var(--yarmi-gold) !important;
+}
+
+/* ── 3. BODY-BANNERS: nulový padding ak je prázdny ── */
+.banners-content.body-banners {
+    padding: 0 !important;
+    display: block !important;
+}
+/* Ak má obsah, zobrazíme s paddingom */
+.banners-content.body-banners:has(*) {
+    padding: 72px 0 !important;
+}
+
+/* ── 4. DKLAB SWIPER → 4-STĹPCOVÝ CSS GRID ──
+   CSS !important prekoná inline transform nastavovaný Swiper JS */
+.homepage-tabs-wrapper .dklabSliderplusHomeWrapper {
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding: 0 40px !important;
+    overflow: visible !important;
+    position: static !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+.homepage-tabs-wrapper .dklabSliderplusHome.swiper,
+.homepage-tabs-wrapper .dklabSliderplusHome {
+    overflow: visible !important;
+}
+.homepage-tabs-wrapper .dklabSliderplusHome .swiper-wrapper {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 24px !important;
+    transform: none !important;
+    width: 100% !important;
+    height: auto !important;
+    will-change: auto !important;
+    transition-duration: 0ms !important;
+    flex-wrap: wrap !important;
+}
+.homepage-tabs-wrapper .dklabSliderplusHome .swiper-slide {
+    width: 100% !important;
+    height: auto !important;
+    margin-right: 0 !important;
+    transform: none !important;
+    flex-shrink: 0 !important;
+}
+/* Skryť navigačné šípky */
+.homepage-tabs-wrapper .swiper-button-next,
+.homepage-tabs-wrapper .swiper-button-prev {
+    display: none !important;
+}
+/* Skryť duplikátny homepage-group-title */
+.homepage-group-title,
+div.homepage-group-title {
+    display: none !important;
+}
+/* Tab content – overflow visible */
+.homepage-tabs-wrapper .tab-content,
+.homepage-tabs-wrapper #tab-content {
+    overflow: visible !important;
+}
+/* Mobile: 2 stĺpce */
+@media (max-width: 900px) {
+    .homepage-tabs-wrapper .dklabSliderplusHomeWrapper {
+        padding: 0 16px !important;
+    }
+    .homepage-tabs-wrapper .dklabSliderplusHome .swiper-wrapper {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+}
+
+/* ── 5. YARMI-WELCOME: presné CSS pre skutočné DOM triedy ──
+   Skutočná štruktúra:
+     .yarmi-welcome__intro
+       h2.yarmi-welcome__slogan [0] = "O mne..."     → eyebrow
+       div.yarmi-welcome__text       = intro heading text
+       h2.yarmi-welcome__slogan [1] = "Nadčasová..."  → tagline
+     .yarmi-welcome__text (sibling) → body paragraph
+*/
+
+/* Outer wrapper */
+.homepage-texts-wrapper {
+    padding: 96px 0 !important;
+    background: var(--yarmi-white) !important;
+    border-top: 1px solid var(--yarmi-border) !important;
+}
+/* Skryť ::before "O nás" – yarmi-welcome má vlastné texty */
+.homepage-texts-wrapper .welcome-wrapper::before,
+.homepage-texts-wrapper .welcome-wrapper::after {
+    display: none !important;
+    content: none !important;
+}
+.welcome-wrapper {
+    max-width: 1320px !important;
+    margin: 0 auto !important;
+    padding: 0 40px !important;
+    text-align: left !important;
+}
+/* Resetovanie card looku z predchádzajúcej yarmi-welcome CSS */
+.yarmi-welcome {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+.yarmi-welcome__inner {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+/* Topline – skryjeme (prázdne) */
+.yarmi-welcome__topline {
+    display: none !important;
+}
+/* Intro blok */
+.yarmi-welcome__intro {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    max-width: 680px !important;
+    margin: 0 auto !important;
+}
+/* Prvý h2 "O mne..." → gold eyebrow */
+.yarmi-welcome__intro > h2.yarmi-welcome__slogan:first-child {
+    font-family: var(--font-body) !important;
+    font-size: 10px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.35em !important;
+    text-transform: uppercase !important;
+    color: var(--yarmi-gold) !important;
+    margin: 0 0 14px 0 !important;
+    line-height: 1 !important;
+}
+/* Vnútorný div.yarmi-welcome__text → veľký Fraunces nadpis */
+.yarmi-welcome__intro > div.yarmi-welcome__text {
+    font-family: var(--font-heading) !important;
+    font-size: clamp(26px, 3vw, 40px) !important;
+    font-weight: 300 !important;
+    color: var(--yarmi-dark) !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+/* Gold linka po vnútornom texte */
+.yarmi-welcome__intro > div.yarmi-welcome__text::after {
+    content: '' !important;
+    display: block !important;
+    width: 40px !important;
+    height: 1px !important;
+    background: var(--yarmi-gold) !important;
+    margin: 20px auto 0 !important;
+}
+/* Druhý h2 "Nadčasová. Sebavedomá. TY." → italic zlatý tagline */
+.yarmi-welcome__intro > h2.yarmi-welcome__slogan:last-child {
+    font-family: var(--font-heading) !important;
+    font-size: clamp(20px, 2.5vw, 28px) !important;
+    font-weight: 300 !important;
+    font-style: italic !important;
+    color: var(--yarmi-gold) !important;
+    margin: 20px 0 0 0 !important;
+    line-height: 1.2 !important;
+}
+/* Sibling .yarmi-welcome__text → body paragraph */
+.yarmi-welcome__inner > .yarmi-welcome__text {
+    max-width: 560px !important;
+    margin: 28px auto 0 !important;
+    text-align: center !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+.yarmi-welcome__inner > .yarmi-welcome__text p {
+    font-family: var(--font-body) !important;
+    font-size: 15px !important;
+    line-height: 1.85 !important;
+    color: var(--yarmi-brown) !important;
+    margin: 0 0 12px 0 !important;
+}
+@media (max-width: 768px) {
+    .homepage-texts-wrapper { padding: 56px 0 !important; }
+    .welcome-wrapper { padding: 0 16px !important; }
+    .yarmi-welcome__intro { max-width: 100% !important; }
+    .yarmi-welcome__inner > .yarmi-welcome__text { max-width: 100% !important; }
+}
+
+/* ═══════════════════════════════════════════════════════
    KONIEC custom-styles-v3.css
    ═══════════════════════════════════════════════════════ */
