@@ -6,6 +6,19 @@
 (function () {
   'use strict';
 
+  /* ── Self-inject CSS (Shoptet strips <link> tags from HEAD template) ─────── */
+  (function injectCSS() {
+    var COMMIT = 'SELF';
+    var cssUrl = document.currentScript
+      ? document.currentScript.src.replace(/yarmi-rebuild\.js(\?.*)?$/, 'yarmi-rebuild.css')
+      : 'https://cdn.jsdelivr.net/gh/decado87/yarmi-styles/yarmi-rebuild.css';
+    var link = document.createElement('link');
+    link.rel  = 'stylesheet';
+    link.type = 'text/css';
+    link.href = cssUrl;
+    document.head.appendChild(link);
+  }());
+
   /* ── Config: static text & category links ──────────────────────────────── */
   var CFG = {
     hero: {
