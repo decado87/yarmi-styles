@@ -2493,6 +2493,9 @@ a:hover { color: #c8a84e !important; }
     padding: 26px 28px !important;
     border-right: 1px solid #e0ccba !important;
     box-sizing: border-box !important;
+    width: 100% !important;
+    max-width: none !important;
+    flex-basis: auto !important;
 }
 
 .benefitBanner__item:last-child {
