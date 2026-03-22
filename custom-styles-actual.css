@@ -2520,7 +2520,7 @@ a:hover { color: #c8a84e !important; }
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: center !important;         /* Centrovanie obsahu v bunke */
+    justify-content: flex-start !important;     /* Mobile: zarovnanie vľavo */
     gap: 14px !important;
     padding: 16px 24px !important;
     border-right: none !important;              /* Bez čiar medzi bunkami */
@@ -2570,9 +2570,8 @@ a:hover { color: #c8a84e !important; }
 .benefitBanner__content {
     display: flex !important;
     flex-direction: column !important;
-    flex: 0 0 auto !important;  /* nie flex:1 – aby sa icon+text centroval ako skupina */
+    flex: 1 !important;         /* Mobile: text vyplní dostupnú šírku */
     min-width: 0 !important;
-    max-width: 180px !important; /* limit šírky textu pre pekné zalamovanie */
 }
 
 .benefitBanner__title {
@@ -2635,6 +2634,17 @@ a:hover { color: #c8a84e !important; }
         padding: 18px 20px !important;
         border-right: none !important;
         border-bottom: none !important;
+    }
+}
+
+/* Desktop: centrovanie icon+text skupiny v bunke */
+@media (min-width: 769px) {
+    .benefitBanner__item {
+        justify-content: center !important;
+    }
+    .benefitBanner__content {
+        flex: 0 0 auto !important;
+        max-width: 180px !important;
     }
 }
 
