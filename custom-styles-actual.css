@@ -2487,12 +2487,16 @@ a:hover { color: #c8a84e !important; }
     margin-right: -20px !important;
 }
 
-.benefitBanner {
+.benefitBanner,
+.benefitBanner.position--benefitHomepage,
+.benefitBanner.position--benefitProduct {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     background: #F5EDE4 !important;
     border-top: 2px solid #c8a84e !important;  /* Zlatá čiara – predel medzi hero a benefitmi */
     border-bottom: none !important;             /* Bez čiary pod bannerom */
+    border-left: none !important;
+    border-right: none !important;
     width: 100% !important;
     box-sizing: border-box !important;
     margin: 0 !important;
@@ -2603,10 +2607,14 @@ a:hover { color: #c8a84e !important; }
         margin-right: -20px !important;
     }
 
-    .benefitBanner {
+    .benefitBanner,
+    .benefitBanner.position--benefitHomepage,
+    .benefitBanner.position--benefitProduct {
         grid-template-columns: repeat(2, 1fr) !important;
         border-top: 2px solid #c8a84e !important;  /* Zlatá čiara aj na mobile */
         border-bottom: none !important;
+        border-left: none !important;
+        border-right: none !important;
     }
 
     .benefitBanner__item {
