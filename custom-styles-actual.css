@@ -2539,6 +2539,8 @@ a:hover { color: #c8a84e !important; }
 .benefitBanner__content {
     display: flex !important;
     flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 0 !important;
 }
 
 .benefitBanner__title {
@@ -2550,6 +2552,8 @@ a:hover { color: #c8a84e !important; }
     color: #2C2417 !important;
     margin: 0 0 3px 0 !important;
     display: block !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
 }
 
 .benefitBanner__data {
@@ -2558,6 +2562,7 @@ a:hover { color: #c8a84e !important; }
     color: #7A5C44 !important;
     line-height: 1.4 !important;
     margin: 0 !important;
+    word-break: normal !important;
 }
 
 /* Mobile: 2×2 mriežka */
