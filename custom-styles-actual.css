@@ -2473,6 +2473,16 @@ a:hover { color: #c8a84e !important; }
    Podľa návrhu yarmi-design-v3.html
    ════════════════════════════════════════════════════ */
 
+/* Kontajner – celá šírka stránky */
+.container--bannersBenefit {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
 .benefitBanner {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
@@ -2489,8 +2499,8 @@ a:hover { color: #c8a84e !important; }
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    gap: 16px !important;
-    padding: 26px 28px !important;
+    gap: 14px !important;
+    padding: 16px 24px !important;
     border-right: 1px solid #e0ccba !important;
     box-sizing: border-box !important;
     width: 100% !important;
@@ -2568,26 +2578,24 @@ a:hover { color: #c8a84e !important; }
     word-break: normal !important;
 }
 
-/* Mobile: 2×2 mriežka */
+/* Mobile: 2×2 mriežka, celá šírka, bez čiar */
 @media (max-width: 768px) {
+    .container--bannersBenefit {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
     .benefitBanner {
         grid-template-columns: repeat(2, 1fr) !important;
+        border-top: none !important;
+        border-bottom: none !important;
     }
 
     .benefitBanner__item {
-        padding: 20px 16px !important;
-        border-bottom: 1px solid #e0ccba !important;
-    }
-
-    /* Pravý stĺpec – bez border-right */
-    .benefitBanner__item:nth-child(2),
-    .benefitBanner__item:nth-child(4) {
+        padding: 18px 20px !important;
         border-right: none !important;
-    }
-
-    /* Posledný riadok – bez border-bottom */
-    .benefitBanner__item:nth-child(3),
-    .benefitBanner__item:nth-child(4) {
         border-bottom: none !important;
     }
 }
