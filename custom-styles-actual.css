@@ -2470,8 +2470,13 @@ a:hover { color: #c8a84e !important; }
 
 /* ════════════════════════════════════════════════════
    BENEFIT BANNER – promo strip (4 položky)
-   Podľa návrhu yarmi-design-v3.html
    ════════════════════════════════════════════════════ */
+
+/* Odstráň medzeru medzi hero sliderom a benefit bannerom */
+.banners-content.body-banners,
+.banners-row {
+    margin-bottom: 0 !important;
+}
 
 /* Kontajner – celá šírka stránky (escape z main padding 20px) */
 .container--bannersBenefit {
@@ -2486,8 +2491,8 @@ a:hover { color: #c8a84e !important; }
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
     background: #F5EDE4 !important;
-    border-top: 1px solid #e0ccba !important;
-    border-bottom: 1px solid #e0ccba !important;
+    border-top: 2px solid #c8a84e !important;  /* Zlatá čiara – predel medzi hero a benefitmi */
+    border-bottom: none !important;             /* Bez čiary pod bannerom */
     width: 100% !important;
     box-sizing: border-box !important;
     margin: 0 !important;
@@ -2498,17 +2503,14 @@ a:hover { color: #c8a84e !important; }
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
+    justify-content: center !important;         /* Centrovanie obsahu v bunke */
     gap: 14px !important;
     padding: 16px 24px !important;
-    border-right: 1px solid #e0ccba !important;
+    border-right: none !important;              /* Bez čiar medzi bunkami */
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: none !important;
     flex-basis: auto !important;
-}
-
-.benefitBanner__item:last-child {
-    border-right: none !important;
 }
 
 /* Skryť pôvodné obrázky (vymazané v admin) */
@@ -2577,7 +2579,21 @@ a:hover { color: #c8a84e !important; }
     word-break: normal !important;
 }
 
-/* Mobile: 2×2 mriežka, celá šírka, bez čiar */
+/* Zmena textu: "To, čo vidíš, aj dostaneš" → "Vyrobené v EÚ." */
+.benefitBanner__item:nth-child(1) .benefitBanner__data {
+    font-size: 0 !important;
+    line-height: 0 !important;
+}
+.benefitBanner__item:nth-child(1) .benefitBanner__data::after {
+    content: 'Vyrobené v EÚ.' !important;
+    font-family: 'Instrument Sans', sans-serif !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    color: #7A5C44 !important;
+    display: block !important;
+}
+
+/* Mobile: 2×2 mriežka, celá šírka, bez čiar, zlatá čiara hore */
 @media (max-width: 768px) {
     .container--bannersBenefit {
         width: calc(100% + 40px) !important;
@@ -2589,7 +2605,7 @@ a:hover { color: #c8a84e !important; }
 
     .benefitBanner {
         grid-template-columns: repeat(2, 1fr) !important;
-        border-top: none !important;
+        border-top: 2px solid #c8a84e !important;  /* Zlatá čiara aj na mobile */
         border-bottom: none !important;
     }
 
