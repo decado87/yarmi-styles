@@ -2603,7 +2603,7 @@ a:hover { color: #c8a84e !important; }
     line-height: 0 !important;
 }
 .benefitBanner__item:nth-child(1) .benefitBanner__data::after {
-    content: 'Vyrobené v EÚ.' !important;
+    content: 'Vyrobené v EÚ' !important;
     font-family: 'Instrument Sans', sans-serif !important;
     font-size: 12px !important;
     line-height: 1.4 !important;
