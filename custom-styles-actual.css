@@ -2649,3 +2649,262 @@ a:hover { color: #c8a84e !important; }
     }
 }
 
+
+
+/* ═══════════════════════════════════════════════════════════════
+   FILTER / SORT BAR + BREADCRUMB REDESIGN
+   feature/filter-breadcrumb-redesign
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ──────────────────────────────────────────────────────────────
+   1. BREADCRUMB – moderný minimalistický štýl
+   ────────────────────────────────────────────────────────────── */
+
+.breadcrumbs,
+nav.breadcrumbs {
+    font-family: 'Instrument Sans', sans-serif !important;
+    font-size: 11px !important;
+    letter-spacing: 0.13em !important;
+    color: #aaa !important;
+    text-transform: uppercase !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    padding: 18px 0 12px !important;
+    background: transparent !important;
+    border: none !important;
+    line-height: 1 !important;
+}
+
+/* Všetky priame span elementy (obal položiek) */
+.breadcrumbs > span,
+nav.breadcrumbs > span {
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Linky – navigačné položky */
+.breadcrumbs a,
+nav.breadcrumbs a {
+    font-family: 'Instrument Sans', sans-serif !important;
+    font-size: 11px !important;
+    letter-spacing: 0.13em !important;
+    color: #aaa !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    font-weight: 400 !important;
+    transition: color 0.2s !important;
+}
+
+.breadcrumbs a:hover,
+nav.breadcrumbs a:hover {
+    color: #c8a84e !important;
+    text-decoration: none !important;
+}
+
+/* Aktuálna stránka (posledná položka) */
+.breadcrumbs [data-testid="breadcrumbsLastLevel"] span,
+.breadcrumbs [data-testid="breadcrumbsLastLevel"] [itemprop="name"] {
+    color: #2C2417 !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.13em !important;
+    font-size: 11px !important;
+    text-transform: uppercase !important;
+}
+
+/* Oddeľovač / → › gold */
+.breadcrumbs .navigation-bullet,
+nav.breadcrumbs .navigation-bullet {
+    font-size: 0 !important;       /* schovaj lomítko "/" */
+    margin: 0 !important;
+    line-height: 0 !important;
+}
+
+.breadcrumbs .navigation-bullet::after,
+nav.breadcrumbs .navigation-bullet::after {
+    content: "›" !important;
+    font-size: 13px !important;
+    color: #c8a84e !important;
+    opacity: 0.65 !important;
+    margin: 0 8px !important;
+    display: inline-block !important;
+    line-height: 1 !important;
+    font-weight: 400 !important;
+}
+
+/* Zruš staré ::before arrow štýly z mobile media query */
+.breadcrumbs span + span::before,
+nav.breadcrumbs span + span::before {
+    content: none !important;
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   2. DESKTOP – listSorting (radenie) ako čistý underline nav
+   ────────────────────────────────────────────────────────────── */
+
+@media (min-width: 769px) {
+    .listSorting.js-listSorting {
+        display: flex !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border-bottom: 1px solid #f0e8e0 !important;
+    }
+
+    .listSorting__controls {
+        display: flex !important;
+        align-items: stretch !important;
+        gap: 0 !important;
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: transparent !important;
+    }
+
+    .listSorting__controls li {
+        display: flex !important;
+        align-items: stretch !important;
+    }
+
+    /* Každé tlačidlo – čistý underline tab štýl */
+    .listSorting__control {
+        font-family: 'Instrument Sans', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.13em !important;
+        text-transform: uppercase !important;
+        color: #aaa !important;
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 2px solid transparent !important;
+        padding: 12px 20px !important;
+        cursor: pointer !important;
+        transition: color 0.2s, border-color 0.2s !important;
+        margin-bottom: -1px !important;   /* overlay border-bottom kontajnera */
+        white-space: nowrap !important;
+    }
+
+    .listSorting__control:hover {
+        color: #c8a84e !important;
+        background: transparent !important;
+    }
+
+    /* Aktívne radenie – gold underline + tmavá farba */
+    .listSorting__control.listSorting__control--current {
+        color: #2C2417 !important;
+        font-weight: 500 !important;
+        border-bottom-color: #c8a84e !important;
+        background: transparent !important;
+    }
+}
+
+
+/* ──────────────────────────────────────────────────────────────
+   3. MOBILE – listSorting schovaný za icon toggle
+   ────────────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+    /* Container – relatívna pozícia pre dropdown */
+    .listSorting.js-listSorting {
+        position: relative !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        min-height: 36px !important;
+    }
+
+    /* Schovaj controls list */
+    .listSorting .listSorting__controls {
+        display: none !important;
+        position: absolute !important;
+        top: calc(100% + 6px) !important;
+        right: 0 !important;
+        background: #fff !important;
+        border: 1px solid #e8ddd5 !important;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.1) !important;
+        z-index: 300 !important;
+        min-width: 190px !important;
+        list-style: none !important;
+        padding: 6px 0 !important;
+        margin: 0 !important;
+        flex-direction: column !important;
+    }
+
+    /* Otvorený stav */
+    .listSorting.yarmi-sort-open .listSorting__controls {
+        display: flex !important;
+    }
+
+    /* Položky v dropdown */
+    .listSorting .listSorting__controls li {
+        display: block !important;
+    }
+
+    .listSorting .listSorting__controls .listSorting__control {
+        font-family: 'Instrument Sans', sans-serif !important;
+        font-size: 11px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.11em !important;
+        text-transform: uppercase !important;
+        color: #666 !important;
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid #f5f0eb !important;
+        padding: 12px 20px !important;
+        width: 100% !important;
+        text-align: left !important;
+        cursor: pointer !important;
+        display: block !important;
+        transition: color 0.15s, background 0.15s !important;
+    }
+
+    .listSorting .listSorting__controls li:last-child .listSorting__control {
+        border-bottom: none !important;
+    }
+
+    .listSorting .listSorting__controls .listSorting__control--current {
+        color: #c8a84e !important;
+        font-weight: 500 !important;
+    }
+
+    .listSorting .listSorting__controls .listSorting__control:hover {
+        color: #c8a84e !important;
+        background: #faf7f2 !important;
+    }
+
+    /* Icon toggle tlačidlo (injektované cez JS) */
+    .yarmi-sort-toggle {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+        border: 1px solid #e0d8d0 !important;
+        color: #2C2417 !important;
+        width: 36px !important;
+        height: 36px !important;
+        flex-shrink: 0 !important;
+        cursor: pointer !important;
+        transition: border-color 0.2s, color 0.2s !important;
+        padding: 0 !important;
+    }
+
+    .yarmi-sort-toggle:hover,
+    .yarmi-sort-open .yarmi-sort-toggle {
+        border-color: #c8a84e !important;
+        color: #c8a84e !important;
+    }
+
+    /* Sr-only heading neschovávaj agresívne */
+    .listSorting .sr-only {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        overflow: hidden !important;
+        clip: rect(0,0,0,0) !important;
+    }
+}

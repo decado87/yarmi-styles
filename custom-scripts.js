@@ -235,3 +235,63 @@ function moveSizeUnderPrice() {
   })();
 }
 
+
+
+/* ─────────────────────────────────────────────────────────────
+   Mobile sort toggle – injects icon button, toggles dropdown
+   feature/filter-breadcrumb-redesign
+   ───────────────────────────────────────────────────────────── */
+(function () {
+    function initMobileSortToggle() {
+        // Only on mobile
+        if (window.innerWidth > 768) return;
+
+        var listSorting = document.querySelector('.listSorting.js-listSorting');
+        if (!listSorting) return;
+
+        // Avoid double-init
+        if (listSorting.querySelector('.yarmi-sort-toggle')) return;
+
+        var controls = listSorting.querySelector('.listSorting__controls');
+        if (!controls) return;
+
+        // Create toggle icon button (sort/funnel SVG icon)
+        var toggleBtn = document.createElement('button');
+        toggleBtn.className = 'yarmi-sort-toggle';
+        toggleBtn.setAttribute('aria-label', 'Radenie produktov');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18M6 12h12M10 19h4"/></svg>';
+
+        // Insert toggle before controls list
+        listSorting.insertBefore(toggleBtn, controls);
+
+        // Toggle open/close
+        toggleBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var isOpen = listSorting.classList.toggle('yarmi-sort-open');
+            toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        });
+
+        // Close when a sort option is clicked (navigates away, but good UX)
+        controls.querySelectorAll('.listSorting__control').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                listSorting.classList.remove('yarmi-sort-open');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!listSorting.contains(e.target)) {
+                listSorting.classList.remove('yarmi-sort-open');
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileSortToggle);
+    } else {
+        initMobileSortToggle();
+    }
+})();
