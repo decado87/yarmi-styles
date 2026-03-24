@@ -1812,6 +1812,7 @@ textarea,
 /* ──── Benefit banner – no borders ──── */
 .benefitBanner,
 .benefitBanner.position--benefitHomepage,
+.benefitBanner.position--benefitCategory,
 .benefitBanner.position--benefitProduct {
     border: none !important;
     box-shadow: none !important;
@@ -2493,16 +2494,17 @@ a:hover { color: #c8a84e !important; }
 
 /* Kontajner – celá šírka stránky (escape z main padding 20px) */
 .container--bannersBenefit {
-    width: calc(100% + 40px) !important;
-    max-width: none !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
     padding: 0 !important;
-    margin-left: -20px !important;
-    margin-right: -20px !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
     margin-bottom: 32px !important;
 }
 
 .benefitBanner,
 .benefitBanner.position--benefitHomepage,
+.benefitBanner.position--benefitCategory,
 .benefitBanner.position--benefitProduct {
     display: grid !important;
     grid-template-columns: repeat(4, 1fr) !important;
@@ -2614,15 +2616,16 @@ a:hover { color: #c8a84e !important; }
 /* Mobile: 2×2 mriežka, celá šírka, bez čiar, zlatá čiara hore */
 @media (max-width: 768px) {
     .container--bannersBenefit {
-        width: calc(100% + 40px) !important;
-        max-width: none !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
         padding: 0 !important;
-        margin-left: -20px !important;
-        margin-right: -20px !important;
+        margin-left: calc(50% - 50vw) !important;
+        margin-right: calc(50% - 50vw) !important;
     }
 
     .benefitBanner,
     .benefitBanner.position--benefitHomepage,
+    .benefitBanner.position--benefitCategory,
     .benefitBanner.position--benefitProduct {
         grid-template-columns: repeat(2, 1fr) !important;
         border-top: 2px solid #c8a84e !important;    /* Zlatá čiara hore aj na mobile */
