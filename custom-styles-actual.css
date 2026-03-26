@@ -2781,3 +2781,24 @@ h2.yarmi-similar-section__title {
 .yarmi-similar-inner .p-all { display: none !important; }
 .yarmi-similar-inner .browse-p { height: 0 !important; overflow: visible !important; }
 
+/* Responsive šípky – na menších obrazovkách bližšie k produktom */
+@media (max-width: 1280px) {
+    .yarmi-similar-inner .p-prev { left: -20px !important; }
+    .yarmi-similar-inner .p-next { right: -20px !important; }
+}
+
+@media (max-width: 991px) {
+    .yarmi-similar-inner .p-prev { left: 4px !important; }
+    .yarmi-similar-inner .p-next { right: 4px !important; }
+}
+
+@media (max-width: 575px) {
+    .yarmi-similar-inner .p-prev { left: 4px !important; }
+    .yarmi-similar-inner .p-next { right: 4px !important; }
+    .yarmi-similar-inner .p-next,
+    .yarmi-similar-inner .p-prev {
+        width: 32px !important;
+        height: 32px !important;
+    }
+}
+
