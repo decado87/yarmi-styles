@@ -2676,3 +2676,108 @@ a:hover { color: #c8a84e !important; }
     }
 }
 
+/* ══════════════════════════════════════════════════════════════════════════════
+   Podobné produkty pod popisom – feature/similar-tab-move
+   JS presunie #productsAlternative pod taby a skryje tab link.
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+/* Skry tab "Podobné" v navigácii (záloha, JS to robí tiež) */
+[data-testid="tabAlternativeProducts"] {
+    display: none !important;
+}
+
+.yarmi-similar-section {
+    padding: 40px 0 56px !important;
+    margin-top: 0 !important;
+}
+
+.yarmi-similar-inner {
+    position: relative !important;
+    overflow: visible !important;
+}
+
+/* Nadpis – h2 zvyšuje špecifitu nad Shoptet text-transform: uppercase */
+h2.yarmi-similar-section__title {
+    font-family: var(--font-heading) !important;
+    font-weight: 300 !important;
+    font-size: 26px !important;
+    letter-spacing: 0.05em !important;
+    color: #111 !important;
+    text-transform: none !important;
+    text-align: center !important;
+    margin-bottom: 32px !important;
+    margin-top: 0 !important;
+}
+
+/* Positioning context pre šípky */
+#productsAlternative {
+    position: relative !important;
+    border: none !important;
+}
+
+/* Šípky – gold kruh, biely fill, gold šípka
+   top nastavuje JS cez --yarmi-arrow-top (stred fotiek), fallback 193px */
+.yarmi-similar-inner .p-next,
+.yarmi-similar-inner .p-prev {
+    position: absolute !important;
+    top: var(--yarmi-arrow-top, 193px) !important;
+    transform: none !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+    border: 2px solid var(--yarmi-gold) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+}
+
+/* Prev < : na ľavej strane, Next > : na pravej strane – obe prečnievajú mimo container */
+.yarmi-similar-inner .p-prev { left: -56px !important; right: auto !important; }
+.yarmi-similar-inner .p-next { right: -56px !important; left: auto !important; }
+
+/* Šípky cez border – symetrická metóda pre obe */
+.yarmi-similar-inner .p-next::before {
+    content: '' !important;
+    display: block !important;
+    width: 9px !important;
+    height: 9px !important;
+    border-top: 2px solid var(--yarmi-gold) !important;
+    border-right: 2px solid var(--yarmi-gold) !important;
+    background: none !important;
+    transform: rotate(45deg) !important;
+    margin-left: -2px !important;
+    flex-shrink: 0 !important;
+}
+
+.yarmi-similar-inner .p-prev::before {
+    content: '' !important;
+    display: block !important;
+    width: 9px !important;
+    height: 9px !important;
+    border-top: 2px solid var(--yarmi-gold) !important;
+    border-left: 2px solid var(--yarmi-gold) !important;
+    background: none !important;
+    transform: rotate(-45deg) !important;
+    margin-right: -2px !important;
+    flex-shrink: 0 !important;
+}
+
+.yarmi-similar-inner .p-prev .sr-only,
+.yarmi-similar-inner .p-next .sr-only {
+    display: none !important;
+}
+
+/* Odstráň šedé borders okolo kariet */
+.yarmi-similar-section .p {
+    border: none !important;
+    outline: none !important;
+}
+
+/* browse-p – skry "Zobraziť všetky", nechaj len šípky */
+.yarmi-similar-inner .p-all { display: none !important; }
+.yarmi-similar-inner .browse-p { height: 0 !important; overflow: visible !important; }
+

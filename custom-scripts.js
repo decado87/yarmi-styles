@@ -235,3 +235,52 @@ function moveSizeUnderPrice() {
   })();
 }
 
+// ──── Podobné produkty pod popisom ────────────────────────────────────────────
+function showSimilarProductsBelow() {
+  if (document.querySelector('.yarmi-similar-section')) return;
+
+  const altTab = document.querySelector('#productsAlternative');
+  if (!altTab) return;
+
+  const products = altTab.querySelectorAll('.p');
+  if (!products.length) return;
+
+  // Skry tab "Podobné" v navigácii
+  const podobneTabLi = document.querySelector('[data-testid="tabAlternativeProducts"]');
+  if (podobneTabLi) podobneTabLi.style.display = 'none';
+
+  // Vytvor sekciu
+  const section = document.createElement('section');
+  section.className = 'yarmi-similar-section';
+
+  const heading = document.createElement('h2');
+  heading.className = 'yarmi-similar-section__title';
+  heading.textContent = 'Mohlo by sa vám páčiť';
+
+  const inner = document.createElement('div');
+  inner.className = 'container yarmi-similar-inner';
+  inner.appendChild(heading);
+  inner.appendChild(altTab);
+  section.appendChild(inner);
+
+  // Zobraz obsah tabu
+  altTab.classList.add('in', 'active');
+
+  // Vlož za .p-detail-tabs-wrapper
+  const tabsWrapper = document.querySelector('.p-detail-tabs-wrapper');
+  if (tabsWrapper && tabsWrapper.parentElement) {
+    tabsWrapper.parentElement.insertBefore(section, tabsWrapper.nextSibling);
+  }
+
+  // Nastav top šípok dynamicky podľa stredu fotiek
+  requestAnimationFrame(function () {
+    const altRect = altTab.getBoundingClientRect();
+    const imgRect = altTab.querySelector('.p .image')?.getBoundingClientRect();
+    if (altRect && imgRect && altRect.height > 0) {
+      const arrowTop = Math.round(imgRect.top - altRect.top + imgRect.height / 2 - 20);
+      document.documentElement.style.setProperty('--yarmi-arrow-top', arrowTop + 'px');
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', showSimilarProductsBelow);
