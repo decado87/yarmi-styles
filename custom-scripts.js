@@ -235,3 +235,123 @@ function moveSizeUnderPrice() {
   })();
 }
 
+// ──── Podobné produkty pod popisom ────────────────────────────────────────────
+function showSimilarProductsBelow() {
+  if (document.querySelector('.yarmi-similar-section')) return;
+
+  const altTab = document.querySelector('#productsAlternative');
+  if (!altTab) return;
+
+  const products = altTab.querySelectorAll('.p');
+  if (!products.length) return;
+
+  // Skry tab "Podobné" v navigácii
+  const podobneTabLi = document.querySelector('[data-testid="tabAlternativeProducts"]');
+  if (podobneTabLi) podobneTabLi.style.display = 'none';
+
+  // Vytvor sekciu
+  const section = document.createElement('section');
+  section.className = 'yarmi-similar-section';
+
+  const heading = document.createElement('h2');
+  heading.className = 'yarmi-similar-section__title';
+  heading.textContent = 'Mohlo by sa vám páčiť';
+
+  const inner = document.createElement('div');
+  inner.className = 'container yarmi-similar-inner';
+  inner.appendChild(heading);
+  inner.appendChild(altTab);
+  section.appendChild(inner);
+
+  // Zobraz obsah tabu
+  altTab.classList.add('in', 'active');
+
+  // Vlož za .p-detail-tabs-wrapper
+  const tabsWrapper = document.querySelector('.p-detail-tabs-wrapper');
+  if (tabsWrapper && tabsWrapper.parentElement) {
+    tabsWrapper.parentElement.insertBefore(section, tabsWrapper.nextSibling);
+  }
+
+  // Nastav top šípok dynamicky podľa stredu fotiek
+  requestAnimationFrame(function () {
+    const altRect = altTab.getBoundingClientRect();
+    const imgRect = altTab.querySelector('.p .image')?.getBoundingClientRect();
+    if (altRect && imgRect && altRect.height > 0) {
+      const arrowTop = Math.round(imgRect.top - altRect.top + imgRect.height / 2 - 20);
+      document.documentElement.style.setProperty('--yarmi-arrow-top', arrowTop + 'px');
+    }
+  });
+
+  // Počkaj, kým Shoptet inicializuje vlastný carousel, potom ho prevezmeme
+  setTimeout(function () { initYarmiSimilarCarousel(altTab); }, 250);
+}
+
+// Vlastný carousel pre sekciu "Mohlo by sa vám páčiť"
+// Shoptet na mobile skryje produkty 2-5 cez .related-sm-screen-hide – obídeme to
+function initYarmiSimilarCarousel(altTab) {
+  var productWrappers = Array.from(altTab.querySelectorAll('.product'));
+  if (!productWrappers.length) return;
+
+  // Zruš Shoptet mobile obmedzenie
+  productWrappers.forEach(function (p) {
+    p.classList.remove('related-sm-screen-hide', 'related-sm-screen-show');
+  });
+
+  var currentPage = 0;
+
+  function getPerPage() {
+    return window.innerWidth >= 992 ? 4 : 2;
+  }
+
+  function getTotalPages() {
+    return Math.ceil(productWrappers.length / getPerPage());
+  }
+
+  function showPage(page) {
+    var perPage = getPerPage();
+    var total = getTotalPages();
+    page = Math.max(0, Math.min(page, total - 1));
+    currentPage = page;
+
+    productWrappers.forEach(function (p, i) {
+      var visible = i >= page * perPage && i < (page + 1) * perPage;
+      p.style.display = visible ? '' : 'none';
+      p.classList.toggle('active', visible);
+      p.classList.toggle('inactive', !visible);
+    });
+
+    var prevBtn = altTab.querySelector('.p-prev');
+    var nextBtn = altTab.querySelector('.p-next');
+    if (prevBtn) prevBtn.classList.toggle('inactive', page === 0);
+    if (nextBtn) nextBtn.classList.toggle('inactive', page >= total - 1);
+  }
+
+  // Prevezmeme kliknutia na šípky (capture fáza pred Shoptet delegáciou)
+  var prevBtn = altTab.querySelector('.p-prev');
+  var nextBtn = altTab.querySelector('.p-next');
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      showPage(currentPage - 1);
+    }, true);
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      showPage(currentPage + 1);
+    }, true);
+  }
+
+  // Pri zmene veľkosti okna prepočítaj
+  window.addEventListener('resize', function () {
+    showPage(Math.min(currentPage, getTotalPages() - 1));
+  });
+
+  // Zobraz prvú stranu
+  showPage(0);
+}
+
+document.addEventListener('DOMContentLoaded', showSimilarProductsBelow);
