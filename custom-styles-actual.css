@@ -2783,8 +2783,46 @@ h2.yarmi-similar-section__title {
 
 /* Responsive šípky – na menších obrazovkách bližšie k produktom */
 @media (max-width: 1280px) {
-    .yarmi-similar-inner .p-prev { left: -30px !important; }
-    .yarmi-similar-inner .p-next { right: -30px !important; }
+    .yarmi-similar-inner .p-prev { left: -20px !important; right: auto !important; }
+    .yarmi-similar-inner .p-next { right: -20px !important; left: auto !important; }
+}
+
+/* Tablet a mobil: šípky 8px od kraja viewportu pomocou viewport-relative calc
+   Funguje pre akýkoľvek centrovaný .container */
+@media (max-width: 991px) {
+    .yarmi-similar-inner .p-prev {
+        left: calc(50% - 50vw + 8px) !important;
+        right: auto !important;
+    }
+    .yarmi-similar-inner .p-next {
+        right: calc(50% - 50vw + 8px) !important;
+        left: auto !important;
+    }
+}
+
+/* Mobil: menšie šípky (32px) */
+@media (max-width: 575px) {
+    .yarmi-similar-inner .p-prev {
+        left: calc(50% - 50vw + 8px) !important;
+        right: auto !important;
+    }
+    .yarmi-similar-inner .p-next {
+        right: calc(50% - 50vw + 8px) !important;
+        left: auto !important;
+    }
+    .yarmi-similar-inner .p-next,
+    .yarmi-similar-inner .p-prev {
+        width: 32px !important;
+        height: 32px !important;
+    }
+}
+
+/* Obídenie Shoptet mobile obmedzenia – náš JS carousel kontroluje viditeľnosť */
+.yarmi-similar-section .product.related-sm-screen-hide {
+    display: block !important;
+}
+.yarmi-similar-section .product.inactive {
+    display: none !important;
 }
 
 
