@@ -1480,9 +1480,10 @@
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
-        width: 100% !important;
+        width: 90% !important;
         height: 48px !important;
         float: none !important;
+        margin: 0 auto !important;
     }
     /* Consent div — na spodok */
     #footer .footer-newsletter fieldset > div:not(.validator-msg-holder) {
@@ -3048,11 +3049,11 @@ h2.yarmi-similar-section__title {
 
     #footer .footer-newsletter input[type="email"] {
         display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
+        width: 90% !important;
+        max-width: 90% !important;
         float: none !important;
         clear: both !important;
-        margin: 0 0 10px !important;
+        margin: 0 auto 10px !important;
     }
 
     #footer .footer-newsletter .btn-arrow-right,
