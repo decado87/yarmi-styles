@@ -1324,9 +1324,9 @@
 
 /* ── Right: form ── */
 #footer .footer-newsletter .subscribe-form {
-    flex: 0 0 500px;
-    width: 500px !important;
-    max-width: 500px;
+    flex: 0 0 560px;
+    width: 560px !important;
+    max-width: 560px;
 }
 #footer .footer-newsletter fieldset {
     border: none !important;
@@ -1458,15 +1458,19 @@
     #footer .footer-newsletter .newsletter-header p {
         max-width: 100% !important;
     }
-    /* Input wrapper — full width, nad buttonom */
+    /* Fieldset — column stack namiesto flex-wrap row */
+    #footer .footer-newsletter fieldset {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        gap: 10px !important;
+    }
+    /* Input wrapper — plná šírka */
     #footer .footer-newsletter .validator-msg-holder {
-        flex: 0 0 100% !important;
+        flex: none !important;
         width: 100% !important;
-        display: block !important;
-        visibility: visible !important;
         order: 1 !important;
     }
-    /* Input samotný — explicitne viditeľný na mobile */
+    /* Input samotný — explicitne viditeľný */
     #footer .footer-newsletter input[type="email"] {
         display: block !important;
         visibility: visible !important;
@@ -1474,12 +1478,19 @@
         width: 100% !important;
         height: 48px !important;
     }
-    /* Button — 80% šírky, vycentrovaný */
+    /* Consent div — na spodok */
+    #footer .footer-newsletter fieldset > div {
+        flex: none !important;
+        width: 100% !important;
+        order: 3 !important;
+    }
+    /* Button — 80% šírky, vycentrovaný, pod inputom */
     #footer .footer-newsletter .btn-arrow-right {
-        flex: 0 0 80% !important;
+        flex: none !important;
         width: 80% !important;
-        margin: 0 auto !important;
+        align-self: center !important;
         order: 2 !important;
+        margin: 0 auto !important;
     }
 }
 
