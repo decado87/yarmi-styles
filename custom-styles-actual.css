@@ -1491,13 +1491,13 @@
         width: 100% !important;
         order: 3 !important;
     }
-    /* Button — 80% šírky, vycentrovaný, pod inputom */
+    /* Button — 50% šírky, vycentrovaný, pod inputom */
     #footer .footer-newsletter .btn-arrow-right,
     #footer .footer-newsletter button,
     #footer .footer-newsletter input[type="submit"] {
         flex: none !important;
         display: block !important;
-        width: 80% !important;
+        width: 50% !important;
         align-self: center !important;
         order: 2 !important;
         margin: 0 auto !important;
@@ -1518,7 +1518,7 @@
     #footer .footer-newsletter .validator-msg-holder button,
     #footer .footer-newsletter .validator-msg-holder input[type="submit"] {
         order: 2 !important;
-        width: 80% !important;
+        width: 50% !important;
         align-self: center !important;
         margin: 0 auto !important;
     }
@@ -3067,7 +3067,7 @@ h2.yarmi-similar-section__title {
     #footer .footer-newsletter button,
     #footer .footer-newsletter input[type="submit"] {
         display: block !important;
-        width: 80% !important;
+        width: 50% !important;
         float: none !important;
         clear: both !important;
         position: static !important;
