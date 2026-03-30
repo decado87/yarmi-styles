@@ -1482,6 +1482,7 @@
         opacity: 1 !important;
         width: 100% !important;
         height: 48px !important;
+        float: none !important;
     }
     /* Consent div — na spodok */
     #footer .footer-newsletter fieldset > div:not(.validator-msg-holder) {
@@ -1494,9 +1495,30 @@
     #footer .footer-newsletter button,
     #footer .footer-newsletter input[type="submit"] {
         flex: none !important;
+        display: block !important;
         width: 80% !important;
         align-self: center !important;
         order: 2 !important;
+        margin: 0 auto !important;
+        float: none !important;
+    }
+
+    /* Fallback: ak sú input aj tlačidlo v rovnakom wrapperi, zoradíme ich nad seba */
+    #footer .footer-newsletter .validator-msg-holder {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    #footer .footer-newsletter .validator-msg-holder input[type="email"] {
+        order: 1 !important;
+        width: 100% !important;
+    }
+    #footer .footer-newsletter .validator-msg-holder .btn-arrow-right,
+    #footer .footer-newsletter .validator-msg-holder button,
+    #footer .footer-newsletter .validator-msg-holder input[type="submit"] {
+        order: 2 !important;
+        width: 80% !important;
+        align-self: center !important;
         margin: 0 auto !important;
     }
 }
