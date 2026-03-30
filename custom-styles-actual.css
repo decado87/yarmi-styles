@@ -3038,3 +3038,32 @@ h2.yarmi-similar-section__title {
 .pageElement__heading {
     color: var(--yarmi-gold, #c8a84e) !important;
 }
+
+/* Mobile hard-override: newsletter input must be above submit button */
+@media (max-width: 768px) {
+    #footer .footer-newsletter form,
+    #footer .footer-newsletter fieldset {
+        display: block !important;
+    }
+
+    #footer .footer-newsletter input[type="email"] {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        float: none !important;
+        clear: both !important;
+        margin: 0 0 10px !important;
+    }
+
+    #footer .footer-newsletter .btn-arrow-right,
+    #footer .footer-newsletter button,
+    #footer .footer-newsletter input[type="submit"] {
+        display: block !important;
+        width: 80% !important;
+        float: none !important;
+        clear: both !important;
+        position: static !important;
+        margin: 0 auto !important;
+    }
+}
+
