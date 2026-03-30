@@ -1324,9 +1324,9 @@
 
 /* ── Right: form ── */
 #footer .footer-newsletter .subscribe-form {
-    flex: 0 0 420px;
-    width: 420px !important;
-    max-width: 420px;
+    flex: 0 0 500px;
+    width: 500px !important;
+    max-width: 500px;
 }
 #footer .footer-newsletter fieldset {
     border: none !important;
@@ -1458,12 +1458,28 @@
     #footer .footer-newsletter .newsletter-header p {
         max-width: 100% !important;
     }
-    /* Na mobile button full-width pod inputom */
+    /* Input wrapper — full width, nad buttonom */
     #footer .footer-newsletter .validator-msg-holder {
         flex: 0 0 100% !important;
-    }
-    #footer .footer-newsletter .btn-arrow-right {
         width: 100% !important;
+        display: block !important;
+        visibility: visible !important;
+        order: 1 !important;
+    }
+    /* Input samotný — explicitne viditeľný na mobile */
+    #footer .footer-newsletter input[type="email"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: 48px !important;
+    }
+    /* Button — 80% šírky, vycentrovaný */
+    #footer .footer-newsletter .btn-arrow-right {
+        flex: 0 0 80% !important;
+        width: 80% !important;
+        margin: 0 auto !important;
+        order: 2 !important;
     }
 }
 
