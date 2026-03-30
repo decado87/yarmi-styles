@@ -3042,9 +3042,16 @@ h2.yarmi-similar-section__title {
 
 /* Mobile hard-override: newsletter input must be above submit button */
 @media (max-width: 768px) {
-    #footer .footer-newsletter form,
-    #footer .footer-newsletter fieldset {
+    #footer .footer-newsletter form {
         display: block !important;
+    }
+    #footer .footer-newsletter fieldset {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #footer .footer-newsletter .validator-msg-holder {
+        order: 1 !important;
     }
 
     #footer .footer-newsletter input[type="email"] {
@@ -3065,6 +3072,14 @@ h2.yarmi-similar-section__title {
         clear: both !important;
         position: static !important;
         margin: 0 auto !important;
+        order: 2 !important;
+    }
+
+    #footer .footer-newsletter .consents,
+    #footer .footer-newsletter .consent,
+    #footer .footer-newsletter fieldset > div:not(.validator-msg-holder) {
+        order: 3 !important;
+        margin-top: 10px !important;
     }
 }
 
