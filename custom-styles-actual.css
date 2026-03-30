@@ -1324,71 +1324,85 @@
 
 /* ── Right: form ── */
 #footer .footer-newsletter .subscribe-form {
-    flex: 0 0 400px;
-    width: 400px !important;
-    max-width: 400px;
+    flex: 0 0 420px;
+    width: 420px !important;
+    max-width: 420px;
 }
 #footer .footer-newsletter fieldset {
     border: none !important;
     padding: 0 !important;
     margin: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* Input wrapper — flex:1 so it stretches next to the button */
+#footer .footer-newsletter .validator-msg-holder {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
 }
 
 /* Email input */
 #footer .footer-newsletter input[type="email"] {
     border-radius: 999px !important;
-    border: 1px solid rgba(200,168,78,.3) !important;
-    background: rgba(255,255,255,.06) !important;
+    border: 1px solid rgba(200,168,78,.35) !important;
+    background: rgba(255,255,255,.07) !important;
     color: #fff !important;
     height: 48px !important;
-    padding: 0 22px !important;
+    padding: 0 20px !important;
     font-size: 13px !important;
     font-family: 'Instrument Sans', sans-serif !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    transition: border-color .2s, background .2s;
+    transition: border-color .2s, background .2s !important;
     outline: none !important;
     display: block !important;
 }
 #footer .footer-newsletter input[type="email"]:focus {
-    border-color: rgba(200,168,78,.65) !important;
-    background: rgba(255,255,255,.09) !important;
+    border-color: rgba(200,168,78,.7) !important;
+    background: rgba(255,255,255,.1) !important;
 }
 #footer .footer-newsletter input[type="email"]::placeholder {
-    color: rgba(255,255,255,.3) !important;
+    color: rgba(255,255,255,.32) !important;
 }
 
-/* Hide <br> */
+/* Hide <br> and hidden honeypot inputs */
 #footer .footer-newsletter br { display: none !important; }
+#footer .footer-newsletter .no-display { display: none !important; }
 
-/* Consent area */
+/* Consent wrapper — full width, below the input+button row */
+#footer .footer-newsletter fieldset > div {
+    flex: 0 0 100% !important;
+    order: 10 !important;
+}
 #footer .footer-newsletter .consents {
-    margin: 12px 2px 16px !important;
+    margin: 4px 0 0 !important;
 }
 #footer .footer-newsletter .consents label,
 #footer .footer-newsletter .consents label.whole-width {
     font-size: 11px !important;
-    color: rgba(255,255,255,.38) !important;
+    color: rgba(255,255,255,.35) !important;
     line-height: 1.55 !important;
     font-weight: 400 !important;
 }
 #footer .footer-newsletter .consents a {
-    color: rgba(200,168,78,.7) !important;
+    color: rgba(200,168,78,.65) !important;
     text-decoration: underline !important;
     text-decoration-color: rgba(200,168,78,.3) !important;
-    text-underline-offset: 2px;
+    text-underline-offset: 2px !important;
 }
 #footer .footer-newsletter .consents a:hover {
     color: var(--yarmi-gold) !important;
-    text-decoration-color: var(--yarmi-gold) !important;
 }
 
-/* Submit button — unhide text, full-width gold pill */
+/* Submit button — inline, gold pill, vedľa inputu */
 #footer .footer-newsletter .btn-arrow-right {
+    flex: 0 0 auto !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 100% !important;
     height: 48px !important;
     border-radius: 999px !important;
     background: var(--yarmi-gold) !important;
@@ -1397,18 +1411,19 @@
     font-family: 'Instrument Sans', sans-serif !important;
     font-size: 11px !important;
     font-weight: 700 !important;
-    letter-spacing: .18em !important;
+    letter-spacing: .16em !important;
     text-transform: uppercase !important;
     cursor: pointer !important;
     transition: background .2s !important;
     padding: 0 24px !important;
     box-sizing: border-box !important;
+    white-space: nowrap !important;
 }
 #footer .footer-newsletter .btn-arrow-right:hover {
     background: #b8943e !important;
     filter: none !important;
 }
-/* Unhide sr-only text in button */
+/* Unhide sr-only text v buttone */
 #footer .footer-newsletter .btn-arrow-right .sr-only {
     position: static !important;
     width: auto !important;
@@ -1419,7 +1434,7 @@
     white-space: normal !important;
     display: inline !important;
 }
-/* Hide arrow pseudo-element */
+/* Skryj šípku ::after */
 #footer .footer-newsletter .btn-arrow-right::after,
 #footer .footer-newsletter .btn-arrow-right::before {
     content: none !important;
@@ -1434,16 +1449,21 @@
         padding: 44px 0 40px !important;
         gap: 28px !important;
     }
-    #footer .footer-newsletter .newsletter-header {
-        width: 100% !important;
-    }
-    #footer .footer-newsletter .newsletter-header p {
-        max-width: 100% !important;
-    }
+    #footer .footer-newsletter .newsletter-header,
     #footer .footer-newsletter .subscribe-form {
         flex: none !important;
         width: 100% !important;
         max-width: 100% !important;
+    }
+    #footer .footer-newsletter .newsletter-header p {
+        max-width: 100% !important;
+    }
+    /* Na mobile button full-width pod inputom */
+    #footer .footer-newsletter .validator-msg-holder {
+        flex: 0 0 100% !important;
+    }
+    #footer .footer-newsletter .btn-arrow-right {
+        width: 100% !important;
     }
 }
 
