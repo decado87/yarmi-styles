@@ -1256,63 +1256,272 @@
     background:transparent;
 }
 
-#footer .newsletter,
-#footer .footer-newsletter,
-#footer [class*="newsletter"]{
-    padding:34px 0 28px;
-    border-bottom:1px solid var(--yarmi-footer-border);
+/* ═══════════════════════════════════════════════════════════════
+   FOOTER NEWSLETTER — premium redesign
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Section wrapper */
+#footer .footer-newsletter {
+    padding: 60px 0 56px !important;
+    border-top: none !important;
+    border-bottom: 1px solid var(--yarmi-footer-border) !important;
+    position: relative;
+    align-items: center !important;
+    gap: 40px;
+}
+/* Gold accent line on top */
+#footer .footer-newsletter::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--yarmi-gold) 40%, var(--yarmi-gold) 60%, transparent 100%);
+    opacity: .45;
 }
 
-#footer .newsletter h4,
+/* ── Left: header text ── */
+#footer .footer-newsletter .newsletter-header {
+    flex: 1;
+    padding: 0 !important;
+}
+/* Eyebrow label */
+#footer .footer-newsletter .newsletter-header::before {
+    content: 'Buďte prvé';
+    display: block;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--yarmi-gold);
+    margin-bottom: 14px;
+    opacity: .9;
+}
+/* Title */
 #footer .footer-newsletter h4,
-#footer [class*="newsletter"] h4{
-    color:#fff !important;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:.06em;
-    font-size:18px;
-    margin:0 0 8px;
+#footer .footer-newsletter h4.topic {
+    color: #fff !important;
+    font-family: 'Fraunces', serif !important;
+    font-weight: 300 !important;
+    font-size: clamp(22px, 2.4vw, 30px) !important;
+    text-transform: none !important;
+    letter-spacing: -0.01em !important;
+    line-height: 1.3 !important;
+    margin: 0 0 14px !important;
+}
+#footer .footer-newsletter h4 span,
+#footer .footer-newsletter h4.topic span {
+    font-style: italic;
+}
+/* Description */
+#footer .footer-newsletter .newsletter-header p {
+    color: rgba(255,255,255,.52) !important;
+    font-size: 13px !important;
+    line-height: 1.75 !important;
+    margin: 0 !important;
+    max-width: 360px;
 }
 
-#footer .newsletter p,
-#footer .footer-newsletter p,
-#footer [class*="newsletter"] p{
-    color:rgba(255,255,255,.72) !important;
-    margin:0;
-    font-size:13px;
-    line-height:1.6;
+/* ── Right: form ── */
+#footer .footer-newsletter .subscribe-form {
+    flex: 0 0 560px;
+    width: 560px !important;
+    max-width: 560px;
+    margin-left: -32px;
+}
+#footer .footer-newsletter fieldset {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 8px !important;
 }
 
-#footer .newsletter input[type="email"],
-#footer .footer-newsletter input[type="email"],
-#footer [class*="newsletter"] input[type="email"]{
-    border-radius:999px !important;
-    border:1px solid rgba(255,255,255,.18) !important;
-    background:rgba(255,255,255,.06) !important;
-    color:#fff !important;
-    height:42px;
-    padding:0 14px;
+/* Input wrapper — flex:1 so it stretches next to the button */
+#footer .footer-newsletter .validator-msg-holder {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
 }
 
-#footer .newsletter button,
-#footer .footer-newsletter button,
-#footer [class*="newsletter"] button,
-#footer .newsletter .btn,
-#footer .footer-newsletter .btn{
-    border-radius:999px !important;
-    background:var(--yarmi-gold) !important;
-    color:#000 !important;
-    border:none !important;
-    height:42px;
-    padding:0 18px;
-    font-weight:800;
-    letter-spacing:.03em;
+/* Email input */
+#footer .footer-newsletter input[type="email"] {
+    border-radius: 999px !important;
+    border: 1px solid rgba(200,168,78,.35) !important;
+    background: rgba(255,255,255,.07) !important;
+    color: #fff !important;
+    height: 48px !important;
+    padding: 0 20px !important;
+    font-size: 13px !important;
+    font-family: 'Instrument Sans', sans-serif !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    transition: border-color .2s, background .2s !important;
+    outline: none !important;
+    display: block !important;
+}
+#footer .footer-newsletter input[type="email"]:focus {
+    border-color: rgba(200,168,78,.7) !important;
+    background: rgba(255,255,255,.1) !important;
+}
+#footer .footer-newsletter input[type="email"]::placeholder {
+    color: rgba(255,255,255,.32) !important;
 }
 
-#footer .newsletter button:hover,
-#footer .footer-newsletter button:hover,
-#footer [class*="newsletter"] button:hover{
-    filter:brightness(1.03);
+/* Hide <br> and hidden honeypot inputs */
+#footer .footer-newsletter br { display: none !important; }
+#footer .footer-newsletter .no-display { display: none !important; }
+
+/* Consent wrapper — full width, below the input+button row */
+#footer .footer-newsletter fieldset > div {
+    flex: 0 0 100% !important;
+    order: 10 !important;
+}
+#footer .footer-newsletter .consents {
+    margin: 4px 0 0 !important;
+}
+#footer .footer-newsletter .consents label,
+#footer .footer-newsletter .consents label.whole-width {
+    font-size: 11px !important;
+    color: rgba(255,255,255,.35) !important;
+    line-height: 1.55 !important;
+    font-weight: 400 !important;
+}
+#footer .footer-newsletter .consents a {
+    color: rgba(200,168,78,.65) !important;
+    text-decoration: underline !important;
+    text-decoration-color: rgba(200,168,78,.3) !important;
+    text-underline-offset: 2px !important;
+}
+#footer .footer-newsletter .consents a:hover {
+    color: var(--yarmi-gold) !important;
+}
+
+/* Submit button — inline, gold pill, vedľa inputu */
+#footer .footer-newsletter .btn-arrow-right {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 48px !important;
+    border-radius: 999px !important;
+    background: var(--yarmi-gold) !important;
+    color: #111 !important;
+    border: none !important;
+    font-family: 'Instrument Sans', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: .16em !important;
+    text-transform: uppercase !important;
+    cursor: pointer !important;
+    transition: background .2s !important;
+    padding: 0 24px !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+}
+#footer .footer-newsletter .btn-arrow-right:hover {
+    background: #b8943e !important;
+    filter: none !important;
+}
+/* Unhide sr-only text v buttone */
+#footer .footer-newsletter .btn-arrow-right .sr-only {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    clip-path: none !important;
+    white-space: normal !important;
+    display: inline !important;
+}
+/* Skryj šípku ::after */
+#footer .footer-newsletter .btn-arrow-right::after,
+#footer .footer-newsletter .btn-arrow-right::before {
+    content: none !important;
+    display: none !important;
+}
+
+/* ── Mobile ≤ 768px ── */
+@media (max-width: 768px) {
+    #footer .footer-newsletter {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 44px 0 40px !important;
+        gap: 28px !important;
+    }
+    #footer .footer-newsletter .newsletter-header,
+    #footer .footer-newsletter .subscribe-form {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+    }
+    #footer .footer-newsletter .newsletter-header p {
+        max-width: 100% !important;
+    }
+    /* Fieldset — column stack namiesto flex-wrap row */
+    #footer .footer-newsletter fieldset {
+        flex-direction: column !important;
+        flex-wrap: nowrap !important;
+        gap: 10px !important;
+    }
+    #footer .footer-newsletter fieldset > * {
+        width: 100% !important;
+    }
+    /* Input wrapper — plná šírka */
+    #footer .footer-newsletter .validator-msg-holder {
+        flex: none !important;
+        width: 100% !important;
+        order: 1 !important;
+    }
+    /* Input samotný — explicitne viditeľný */
+    #footer .footer-newsletter input[type="email"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 90% !important;
+        height: 48px !important;
+        float: none !important;
+        margin: 0 auto !important;
+    }
+    /* Consent div — na spodok */
+    #footer .footer-newsletter fieldset > div:not(.validator-msg-holder) {
+        flex: none !important;
+        width: 100% !important;
+        order: 3 !important;
+    }
+    /* Button — 50% šírky, vycentrovaný, pod inputom */
+    #footer .footer-newsletter .btn-arrow-right,
+    #footer .footer-newsletter button,
+    #footer .footer-newsletter input[type="submit"] {
+        flex: none !important;
+        display: block !important;
+        width: 50% !important;
+        align-self: center !important;
+        order: 2 !important;
+        margin: 0 auto !important;
+        float: none !important;
+    }
+
+    /* Fallback: ak sú input aj tlačidlo v rovnakom wrapperi, zoradíme ich nad seba */
+    #footer .footer-newsletter .validator-msg-holder {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    #footer .footer-newsletter .validator-msg-holder input[type="email"] {
+        order: 1 !important;
+        width: 100% !important;
+    }
+    #footer .footer-newsletter .validator-msg-holder .btn-arrow-right,
+    #footer .footer-newsletter .validator-msg-holder button,
+    #footer .footer-newsletter .validator-msg-holder input[type="submit"] {
+        order: 2 !important;
+        width: 50% !important;
+        align-self: center !important;
+        margin: 0 auto !important;
+    }
 }
 
 #footer .custom-footer,
@@ -2830,3 +3039,47 @@ h2.yarmi-similar-section__title {
 .pageElement__heading {
     color: var(--yarmi-gold, #c8a84e) !important;
 }
+
+/* Mobile hard-override: newsletter input must be above submit button */
+@media (max-width: 768px) {
+    #footer .footer-newsletter form {
+        display: block !important;
+    }
+    #footer .footer-newsletter fieldset {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #footer .footer-newsletter .validator-msg-holder {
+        order: 1 !important;
+    }
+
+    #footer .footer-newsletter input[type="email"] {
+        display: block !important;
+        width: 90% !important;
+        max-width: 90% !important;
+        float: none !important;
+        clear: both !important;
+        margin: 0 auto 10px !important;
+    }
+
+    #footer .footer-newsletter .btn-arrow-right,
+    #footer .footer-newsletter button,
+    #footer .footer-newsletter input[type="submit"] {
+        display: block !important;
+        width: 50% !important;
+        float: none !important;
+        clear: both !important;
+        position: static !important;
+        margin: 0 auto !important;
+        order: 2 !important;
+    }
+
+    #footer .footer-newsletter .consents,
+    #footer .footer-newsletter .consent,
+    #footer .footer-newsletter fieldset > div:not(.validator-msg-holder) {
+        order: 3 !important;
+        margin-top: 10px !important;
+    }
+}
+
