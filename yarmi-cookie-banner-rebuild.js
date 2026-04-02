@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402d" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402e" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -110,6 +110,51 @@
       var domain = location.hostname.replace(/^www\./, '');
       document.cookie = '_fbp=' + fbp + '; expires=' + exp + '; path=/; domain=.' + domain + '; SameSite=Lax';
     } catch (e) {}
+  })();
+
+  // Inject Meta advanced matching (external_id) into the fbq queue at script init.
+  // This MUST run before fbevents.js processes the queue so external_id is included
+  // in PageView, ViewContent, ViewCategory — not just in later events.
+  //
+  // Shoptet queues fbq('init', pixelId) as a stub before fbevents.js loads.
+  // We read the pixelId from that stub queue and queue another fbq('init') with
+  // external_id immediately after. fbevents.js then processes both together.
+  //
+  // external_id: Shoptet's CookiesConsent cookieId (stable per user, no hashing needed
+  // per Meta docs). Falls back to the pre-generated _fbp value.
+  (function injectMetaExternalId() {
+    try {
+      if (typeof window.fbq !== 'function') return;
+      // Read pixel ID from Shoptet's fbq stub queue
+      var pixelId = null;
+      var queue = window.fbq.queue || [];
+      for (var qi = 0; qi < queue.length; qi++) {
+        if (queue[qi] && queue[qi][0] === 'init' && /^\d{10,16}$/.test(queue[qi][1])) {
+          pixelId = String(queue[qi][1]);
+          break;
+        }
+      }
+      if (!pixelId) return;
+      // external_id source (no hashing required per Meta docs)
+      var extId = null;
+      var ccRaw = document.cookie.split(';').map(function(c){ return c.trim(); })
+        .find(function(c){ return c.startsWith('CookiesConsent='); });
+      if (ccRaw) {
+        try {
+          var ccObj = JSON.parse(decodeURIComponent(ccRaw.split('=').slice(1).join('=')));
+          if (ccObj && ccObj.cookieId) extId = String(ccObj.cookieId);
+        } catch(e2) {}
+      }
+      // Fallback: _fbp (just pre-generated above, stable per browser)
+      if (!extId) {
+        var fbpCk = document.cookie.split(';').map(function(c){ return c.trim(); })
+          .find(function(c){ return c.startsWith('_fbp='); });
+        if (fbpCk) extId = fbpCk.split('=').slice(1).join('=');
+      }
+      if (extId) {
+        window.fbq('init', pixelId, { external_id: extId });
+      }
+    } catch(e) {}
   })();
 
   syncConsentMode(storedConsent || { analytics: false, marketing: false }, storedConsent ? 'update' : 'default');
@@ -565,35 +610,38 @@
         return typeof window.fbq === 'function';
       }, function (attempt) {
         try {
-          // Advanced matching: inject external_id (no hashing required per Meta docs).
-          // Calling fbq('init') again after fbevents.js init merges additional user data.
-          // external_id improves Event Match Quality and helps deduplicate browser + server events.
-          // We use Shoptet's own cookieId (stable per-user anonymous ID) as external_id,
-          // with GA client ID as fallback. Both are non-PII and require no hashing.
+          // Re-inject external_id after fbevents.js is fully loaded (belt-and-suspenders).
+          // The init-time injection queued it for new events; this call ensures it's merged
+          // into the live fbq instance state for any late-firing events.
+          // Pixel ID: _fbq.instance keys are the initialized pixel IDs (numeric strings).
+          // "_fbq.pixelIds" is unreliable (often empty); instance scan is the correct method.
           try {
             var pixelId = null;
-            if (window._fbq && window._fbq.pixelIds && window._fbq.pixelIds.length) {
-              pixelId = String(window._fbq.pixelIds[0]);
+            if (window._fbq && window._fbq.instance) {
+              var instKeys = Object.keys(window._fbq.instance);
+              var numKey = instKeys.find(function(k){ return /^\d{10,16}$/.test(k); });
+              if (numKey) pixelId = numKey;
+            }
+            // Fallback: scan all _fbq keys for a numeric pixel ID
+            if (!pixelId && window._fbq) {
+              var fbqKeys = Object.keys(window._fbq);
+              var numFallback = fbqKeys.find(function(k){ return /^\d{10,16}$/.test(k); });
+              if (numFallback) pixelId = numFallback;
             }
             if (pixelId) {
               var extId = null;
-              // Primary: Shoptet CookiesConsent cookieId
-              var ccRaw = document.cookie.split(';').map(function(c){ return c.trim(); })
+              var ccRaw2 = document.cookie.split(';').map(function(c){ return c.trim(); })
                 .find(function(c){ return c.startsWith('CookiesConsent='); });
-              if (ccRaw) {
+              if (ccRaw2) {
                 try {
-                  var ccObj = JSON.parse(decodeURIComponent(ccRaw.split('=').slice(1).join('=')));
-                  if (ccObj && ccObj.cookieId) extId = String(ccObj.cookieId);
+                  var ccObj2 = JSON.parse(decodeURIComponent(ccRaw2.split('=').slice(1).join('=')));
+                  if (ccObj2 && ccObj2.cookieId) extId = String(ccObj2.cookieId);
                 } catch(e2) {}
               }
-              // Fallback: GA client ID from _ga cookie (format GA1.1.XXXXXXXX.XXXXXXXX)
               if (!extId) {
-                var gaCk = document.cookie.split(';').map(function(c){ return c.trim(); })
-                  .find(function(c){ return c.startsWith('_ga=GA'); });
-                if (gaCk) {
-                  var gaParts = gaCk.split('=')[1].split('.');
-                  if (gaParts.length >= 4) extId = gaParts[2] + '.' + gaParts[3];
-                }
+                var fbpCk2 = document.cookie.split(';').map(function(c){ return c.trim(); })
+                  .find(function(c){ return c.startsWith('_fbp='); });
+                if (fbpCk2) extId = fbpCk2.split('=').slice(1).join('=');
               }
               if (extId) {
                 window.fbq('init', pixelId, { external_id: extId });
