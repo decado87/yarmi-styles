@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402i" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402j" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -213,7 +213,27 @@
   function getConsent() {
     try {
       var raw = localStorage.getItem(CONFIG.storageKey);
-      if (!raw) return null;
+      if (!raw) {
+        // Fallback: localStorage prázdny, ale CookiesConsent cookie môže existovať
+        // (napr. Shoptetov natívny banner bol akceptovaný, alebo iný page load nastavil cookie).
+        // Prečítame cookie a ak má consent, vrátime ho — tým zabránime tomu,
+        // aby banner pushol DENIED do GTM pre používateľov ktorí už súhlasili.
+        var fromCookie = getConsentFromShoptetCookie();
+        if (fromCookie) {
+          // Uložíme do localStorage aby sme to pri ďalšom loade nemuseli znova riešiť
+          try {
+            localStorage.setItem(CONFIG.storageKey, JSON.stringify({
+              version: CONFIG.version,
+              timestamp: new Date().toISOString(),
+              necessary: true,
+              analytics: fromCookie.analytics,
+              marketing: fromCookie.marketing,
+              source: 'shoptet-cookie-sync'
+            }));
+          } catch(e2) {}
+        }
+        return fromCookie;
+      }
 
       var parsed = JSON.parse(raw);
       if (!parsed || typeof parsed !== 'object') return null;
@@ -226,6 +246,29 @@
         marketing: !!parsed.marketing
       };
     } catch (error) {
+      return null;
+    }
+  }
+
+  // Prečíta consent zo Shoptetovho CookiesConsent cookie.
+  // Formát: {"consent":"analytics,personalisation","cookieId":"..."}
+  // "personalisation" = marketing consent.
+  function getConsentFromShoptetCookie() {
+    try {
+      var ccCookie = document.cookie.split(';').map(function(c){ return c.trim(); })
+        .find(function(c){ return c.startsWith('CookiesConsent='); });
+      if (!ccCookie) return null;
+      var ccObj = JSON.parse(decodeURIComponent(ccCookie.split('=').slice(1).join('=')));
+      if (!ccObj || !ccObj.consent) return null;
+      var parts = ccObj.consent.split(',').map(function(p){ return p.trim(); });
+      return {
+        version: CONFIG.version,
+        timestamp: null,
+        necessary: true,
+        analytics: parts.indexOf('analytics') !== -1,
+        marketing: parts.indexOf('personalisation') !== -1
+      };
+    } catch(e) {
       return null;
     }
   }
