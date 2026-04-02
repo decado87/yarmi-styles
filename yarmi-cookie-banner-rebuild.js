@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402g" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402h" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -472,6 +472,9 @@
     }
 
     storedConsent = data;
+    // Set Shoptet's CookiesConsent cookie immediately so subsequent page loads
+    // have fbevents.js available without waiting for applyShoptetConsent to succeed.
+    setShoptetCookieConsent(data.analytics, data.marketing);
     applyShoptetConsent(data);
     syncConsentMode(data, 'update');
     dispatchConsentUpdate(data);
@@ -619,6 +622,13 @@
   
   function syncPixelConsent(data) {
     if (data && data.marketing) {
+      // If fbq not loaded (new user — Shoptet skips fbevents.js without CookiesConsent cookie),
+      // load fbevents.js dynamically ourselves so PageView fires on THIS visit.
+      // This is the fix for "Landing page views = 0" in Meta Ads Manager.
+      if (typeof window.fbq !== 'function') {
+        loadFbPixelDynamic(data);
+        return;
+      }
       runWhenAvailable(function () {
         return typeof window.fbq === 'function';
       }, function (attempt) {
@@ -750,6 +760,108 @@
     } catch (error) {
       // no-op
     }
+  }
+
+  // Set Shoptet's CookiesConsent cookie directly.
+  // Format: {"consent":"analytics,personalisation","cookieId":"<id>"}
+  // "analytics" = analytics tracking, "personalisation" = marketing/ads tracking.
+  // Shoptet checks this cookie to decide whether to load fbevents.js and similar scripts.
+  function setShoptetCookieConsent(analytics, marketing) {
+    try {
+      // Reuse existing cookieId if available, otherwise derive from _fbp or generate one
+      var cookieId = null;
+      var existingCC = document.cookie.split(';').map(function(c){ return c.trim(); })
+        .find(function(c){ return c.startsWith('CookiesConsent='); });
+      if (existingCC) {
+        try {
+          var ex = JSON.parse(decodeURIComponent(existingCC.split('=').slice(1).join('=')));
+          if (ex && ex.cookieId) cookieId = ex.cookieId;
+        } catch(e) {}
+      }
+      if (!cookieId) {
+        var fbpCk = document.cookie.split(';').map(function(c){ return c.trim(); })
+          .find(function(c){ return c.startsWith('_fbp='); });
+        cookieId = fbpCk ? fbpCk.split('=').slice(1).join('=') :
+          ('yc.' + Date.now() + '.' + Math.floor(Math.random() * 1000000000));
+      }
+      var cats = [];
+      if (analytics) cats.push('analytics');
+      if (marketing) cats.push('personalisation');
+      var ccVal = JSON.stringify({ consent: cats.join(','), cookieId: cookieId });
+      var exp = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+      var domain = location.hostname.replace(/^www\./, '');
+      document.cookie = 'CookiesConsent=' + encodeURIComponent(ccVal) +
+        '; expires=' + exp + '; path=/; domain=.' + domain + '; SameSite=Lax';
+    } catch(e) {}
+  }
+
+  // Dynamically load fbevents.js when Shoptet hasn't loaded it (new user, no CookiesConsent cookie).
+  // Creates the fbq stub, inits the pixel with external_id, fires PageView, then loads fbevents.js.
+  // This fires the PageView on the CURRENT visit so it counts as a Meta Landing page view.
+  function loadFbPixelDynamic(data) {
+    try {
+      // Detect pixel ID from Shoptet's noscript tag (always present if pixel configured)
+      var pixelId = null;
+      Array.from(document.querySelectorAll('noscript')).forEach(function(n) {
+        if (!pixelId) {
+          var m = n.innerHTML.match(/facebook\.com\/tr[^"']*[?&]id=(\d{10,16})/);
+          if (m) pixelId = m[1];
+        }
+      });
+      // Fallback: search inline scripts
+      if (!pixelId) {
+        Array.from(document.querySelectorAll('script:not([src])')).forEach(function(s) {
+          if (!pixelId) {
+            var m = s.textContent.match(/fbq\s*\(\s*['"]init['"]\s*,\s*['"](\d{10,16})['"]/);
+            if (m) pixelId = m[1];
+          }
+        });
+      }
+      if (!pixelId) return;
+
+      // Create fbq stub if missing
+      if (typeof window.fbq !== 'function') {
+        var fbqFn = function() {
+          fbqFn.callMethod ?
+            fbqFn.callMethod.apply(fbqFn, arguments) :
+            fbqFn.queue.push(arguments);
+        };
+        fbqFn.push    = fbqFn;
+        fbqFn.loaded  = true;
+        fbqFn.version = '2.0';
+        fbqFn.queue   = [];
+        window.fbq = fbqFn;
+        if (!window._fbq) window._fbq = fbqFn;
+      }
+
+      // Get external_id from CookiesConsent cookie (just set by setShoptetCookieConsent)
+      var extId = null;
+      var ccRaw = document.cookie.split(';').map(function(c){ return c.trim(); })
+        .find(function(c){ return c.startsWith('CookiesConsent='); });
+      if (ccRaw) {
+        try {
+          var ccObj = JSON.parse(decodeURIComponent(ccRaw.split('=').slice(1).join('=')));
+          if (ccObj && ccObj.cookieId) extId = String(ccObj.cookieId);
+        } catch(e2) {}
+      }
+      if (!extId) {
+        var fbpCk = document.cookie.split(';').map(function(c){ return c.trim(); })
+          .find(function(c){ return c.startsWith('_fbp='); });
+        if (fbpCk) extId = fbpCk.split('=').slice(1).join('=');
+      }
+
+      // Init pixel + queue PageView — fbevents.js will process queue when it loads
+      window.fbq('init', pixelId, extId ? { external_id: extId } : {});
+      window.fbq('track', 'PageView');
+
+      // Load fbevents.js dynamically
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+      document.head.appendChild(script);
+
+      emitUserAction('fb_pixel_dynamic_loaded', { pixelId: pixelId, hasExtId: !!extId });
+    } catch(e) {}
   }
 
   function applyShoptetConsent(consent) {
