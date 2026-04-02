@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402e" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402f" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -127,12 +127,19 @@
       if (typeof window.fbq !== 'function') return;
       // Read pixel ID from Shoptet's fbq stub queue
       var pixelId = null;
+      // Method 1: read from Shoptet's fbq stub queue (works before fbevents.js loads)
       var queue = window.fbq.queue || [];
       for (var qi = 0; qi < queue.length; qi++) {
         if (queue[qi] && queue[qi][0] === 'init' && /^\d{10,16}$/.test(queue[qi][1])) {
           pixelId = String(queue[qi][1]);
           break;
         }
+      }
+      // Method 2: pixelsByID (populated once fbevents.js has already loaded + initialized)
+      if (!pixelId && window._fbq && window._fbq.instance && window._fbq.instance.pixelsByID) {
+        var pids = Object.keys(window._fbq.instance.pixelsByID);
+        var numPid = pids.find(function(k){ return /^\d{10,16}$/.test(k); });
+        if (numPid) pixelId = numPid;
       }
       if (!pixelId) return;
       // external_id source (no hashing required per Meta docs)
@@ -613,16 +620,23 @@
           // Re-inject external_id after fbevents.js is fully loaded (belt-and-suspenders).
           // The init-time injection queued it for new events; this call ensures it's merged
           // into the live fbq instance state for any late-firing events.
-          // Pixel ID: _fbq.instance keys are the initialized pixel IDs (numeric strings).
-          // "_fbq.pixelIds" is unreliable (often empty); instance scan is the correct method.
+          // Pixel ID: stored in _fbq.instance.pixelsByID (keyed by numeric pixel ID string).
+          // Direct instance key scan and _fbq key scan are unreliable — pixelsByID is correct.
           try {
             var pixelId = null;
-            if (window._fbq && window._fbq.instance) {
+            // Primary: pixelsByID (correct location in all fbevents.js versions tested)
+            if (window._fbq && window._fbq.instance && window._fbq.instance.pixelsByID) {
+              var pidKeys = Object.keys(window._fbq.instance.pixelsByID);
+              var pidNum = pidKeys.find(function(k){ return /^\d{10,16}$/.test(k); });
+              if (pidNum) pixelId = pidNum;
+            }
+            // Fallback A: direct _fbq.instance numeric keys (older fbevents.js versions)
+            if (!pixelId && window._fbq && window._fbq.instance) {
               var instKeys = Object.keys(window._fbq.instance);
               var numKey = instKeys.find(function(k){ return /^\d{10,16}$/.test(k); });
               if (numKey) pixelId = numKey;
             }
-            // Fallback: scan all _fbq keys for a numeric pixel ID
+            // Fallback B: scan all _fbq keys
             if (!pixelId && window._fbq) {
               var fbqKeys = Object.keys(window._fbq);
               var numFallback = fbqKeys.find(function(k){ return /^\d{10,16}$/.test(k); });
