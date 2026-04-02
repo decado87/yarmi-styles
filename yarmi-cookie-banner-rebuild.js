@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402f" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402g" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -190,6 +190,12 @@
   onReady(function () {
     if (storedConsent) {
       applyShoptetConsent(storedConsent);
+      // Also sync Meta pixel advanced matching for returning users.
+      // syncPixelConsent is normally called only from saveConsent (on button click).
+      // For returning users consent is already stored — we must call it here explicitly
+      // so external_id / advanced matching is injected on every page load, not just
+      // the first time the user accepts.
+      syncPixelConsent(storedConsent);
     }
     if (!storedConsent) {
       openBanner(getInitialPrefs(), false);
