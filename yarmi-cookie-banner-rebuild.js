@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402h" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402i" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -851,8 +851,9 @@
       }
 
       // Init pixel + queue PageView — fbevents.js will process queue when it loads
+      var dynEventId = 'ypv.' + Date.now() + '.' + Math.random().toString(36).substring(2, 10);
       window.fbq('init', pixelId, extId ? { external_id: extId } : {});
-      window.fbq('track', 'PageView');
+      window.fbq('track', 'PageView', {}, { eventID: dynEventId });
 
       // Load fbevents.js dynamically
       var script = document.createElement('script');
