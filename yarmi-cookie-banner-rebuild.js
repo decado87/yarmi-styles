@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402c" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402d" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -89,6 +89,26 @@
       var exp = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString(); // 90 days
       var domain = location.hostname.replace(/^www\./, '');
       document.cookie = '_fbc=' + fbc + '; expires=' + exp + '; path=/; domain=.' + domain + '; SameSite=Lax';
+    } catch (e) {}
+  })();
+
+  // Pre-generate _fbp (Meta Browser ID) if not already set.
+  // fbevents.js normally creates _fbp, but it only loads AFTER cookie consent is given.
+  // By pre-creating it at script init we ensure:
+  //  1. Shoptet's server-side Conversions API can read _fbp from request cookies on this visit.
+  //  2. fbevents.js will reuse the existing value rather than generating a new one.
+  // Format per Meta spec: fb.{subdomain_index}.{creation_time_ms}.{random_number}
+  // "Do not hash" — Meta docs, Customer Information Parameters.
+  (function preCaptureMetaBrowserId() {
+    try {
+      var existing = document.cookie.split(';').map(function(c){ return c.trim(); })
+        .find(function(c){ return c.startsWith('_fbp='); });
+      if (existing) return; // already set — leave it untouched
+      var random = String(Math.floor(Math.random() * 10000000000));
+      var fbp = 'fb.1.' + Date.now() + '.' + random;
+      var exp = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString(); // 90 days
+      var domain = location.hostname.replace(/^www\./, '');
+      document.cookie = '_fbp=' + fbp + '; expires=' + exp + '; path=/; domain=.' + domain + '; SameSite=Lax';
     } catch (e) {}
   })();
 
@@ -545,6 +565,42 @@
         return typeof window.fbq === 'function';
       }, function (attempt) {
         try {
+          // Advanced matching: inject external_id (no hashing required per Meta docs).
+          // Calling fbq('init') again after fbevents.js init merges additional user data.
+          // external_id improves Event Match Quality and helps deduplicate browser + server events.
+          // We use Shoptet's own cookieId (stable per-user anonymous ID) as external_id,
+          // with GA client ID as fallback. Both are non-PII and require no hashing.
+          try {
+            var pixelId = null;
+            if (window._fbq && window._fbq.pixelIds && window._fbq.pixelIds.length) {
+              pixelId = String(window._fbq.pixelIds[0]);
+            }
+            if (pixelId) {
+              var extId = null;
+              // Primary: Shoptet CookiesConsent cookieId
+              var ccRaw = document.cookie.split(';').map(function(c){ return c.trim(); })
+                .find(function(c){ return c.startsWith('CookiesConsent='); });
+              if (ccRaw) {
+                try {
+                  var ccObj = JSON.parse(decodeURIComponent(ccRaw.split('=').slice(1).join('=')));
+                  if (ccObj && ccObj.cookieId) extId = String(ccObj.cookieId);
+                } catch(e2) {}
+              }
+              // Fallback: GA client ID from _ga cookie (format GA1.1.XXXXXXXX.XXXXXXXX)
+              if (!extId) {
+                var gaCk = document.cookie.split(';').map(function(c){ return c.trim(); })
+                  .find(function(c){ return c.startsWith('_ga=GA'); });
+                if (gaCk) {
+                  var gaParts = gaCk.split('=')[1].split('.');
+                  if (gaParts.length >= 4) extId = gaParts[2] + '.' + gaParts[3];
+                }
+              }
+              if (extId) {
+                window.fbq('init', pixelId, { external_id: extId });
+              }
+            }
+          } catch(e3) {}
+
           // CookieConsent custom event for analytics (optional, for tracking consent actions)
           window.fbq('trackCustom', 'CookieConsent', {
             necessary: true,
