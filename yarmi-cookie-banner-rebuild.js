@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260402j" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260403a" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -69,22 +69,40 @@
   var sentGaPageView = false;
 
   // Capture the original landing URL (with UTMs, fbclid, gclid) at script load time.
-  // Used in sendDirectGa4Pageview so attribution is correct even if the user navigates
-  // to another page before accepting cookies.
-  var capturedLandingUrl = window.location.href;
+  // Prefer window.__yarmiPreCaptureUrl — set by a tiny inline script in Shoptet HEAD that
+  // runs synchronously BEFORE any defer/async scripts (including ours) can execute. This
+  // ensures we get the real URL even if Shoptet's inline scripts call history.replaceState
+  // to strip fbclid/UTMs before our deferred script starts.
+  // If the inline snippet is not installed, fall back to window.location.href as before.
+  var capturedLandingUrl = window.__yarmiPreCaptureUrl || window.location.href;
 
   // Pre-capture Meta fbclid from the URL immediately — before Shoptet or any other script
   // might strip it via history.replaceState. Sets _fbc cookie so fbevents.js (which only
   // loads AFTER the user accepts cookies) can still attribute the visit to the correct Meta
   // ad even if fbclid is no longer in the URL at the time the pixel fires.
+  //
+  // We read from capturedLandingUrl (which prefers window.__yarmiPreCaptureUrl — set by a
+  // tiny inline snippet in Shoptet HEAD that runs synchronously before any defer/async script).
   (function preCaptureMetaClickId() {
     try {
-      var fbclid = new URLSearchParams(window.location.search).get('fbclid');
+      var searchStr = capturedLandingUrl.indexOf('?') !== -1
+        ? capturedLandingUrl.split('?')[1] : '';
+      var fbclid = searchStr ? new URLSearchParams(searchStr).get('fbclid') : null;
       if (!fbclid) return;
-      // Don't overwrite an existing _fbc (would replace a more recent click attribution)
+
+      // Check existing _fbc cookie
       var existing = document.cookie.split(';').map(function(c){ return c.trim(); })
         .find(function(c){ return c.startsWith('_fbc='); });
-      if (existing) return;
+      if (existing) {
+        // Per Meta docs: update _fbc if the fbclid in the URL is different from the one
+        // currently stored. Handles the case where the user clicks a new Meta ad (new fbclid)
+        // while an older _fbc from a previous session is still present in the cookie.
+        var existingVal = existing.split('=').slice(1).join('='); // full fb.1.TIMESTAMP.FBCLID
+        var existingFbclid = existingVal.split('.').slice(3).join('.'); // strip "fb.1.TIMESTAMP."
+        if (existingFbclid === fbclid) return; // same fbclid already stored — nothing to do
+        // Different fbclid in URL — fall through and overwrite
+      }
+
       var fbc = 'fb.1.' + Date.now() + '.' + fbclid;
       var exp = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toUTCString(); // 90 days
       var domain = location.hostname.replace(/^www\./, '');
