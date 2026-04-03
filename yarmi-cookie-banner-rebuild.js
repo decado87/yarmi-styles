@@ -3,7 +3,7 @@
  * JS-only rebuild cookies bannera pre yarmi.sk / Shoptet.
  *
  * Použitie v Shoptet HEAD template:
- * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260403a" defer></script>
+ * <script src="https://cdn.jsdelivr.net/gh/decado87/yarmi-styles@main/yarmi-cookie-banner-rebuild.js?v=20260403b" defer></script>
  *
  * Vlastnosti:
  * - beží samostatne, bez potreby HTML/CSS zásahu do šablóny
@@ -1380,6 +1380,28 @@
     window.yarmiOpenCookieSettings = function () {
       openBanner(getInitialPrefs(), true);
     };
+
+    // Intercept clicks on Shoptet's native "manage cookie settings" link
+    // (.js-cookies-settings / [data-testid="cookiesSettings"]).
+    // Shoptet's own JS would try to open the native banner — which our
+    // MutationObserver immediately suppresses. We catch the click first
+    // (capture phase) and open our banner instead.
+    document.addEventListener('click', function (e) {
+      var target = e.target;
+      while (target && target !== document) {
+        if (target.classList && (
+          target.classList.contains('js-cookies-settings') ||
+          target.classList.contains('cookies-settings') ||
+          target.getAttribute('data-testid') === 'cookiesSettings'
+        )) {
+          e.preventDefault();
+          e.stopPropagation();
+          openBanner(getInitialPrefs(), true);
+          return;
+        }
+        target = target.parentElement;
+      }
+    }, true); // capture = true so we run before Shoptet's bubbling handler
 
     window.yarmiResetCookieConsent = function () {
       try {
